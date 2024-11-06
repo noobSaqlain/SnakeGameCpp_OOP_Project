@@ -1,0 +1,21 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"dir-cur-bld" : "C:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug",
+	"dir-cur-src" : "C:/Users/LENOVO/Desktop/snakeGameOOp",
+	"dir-top-bld" : "C:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug",
+	"dir-top-src" : "C:/Users/LENOVO/Desktop/snakeGameOOp",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"C:\\SFML\\include"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "C:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/CMakeFiles/snakeGameOOp.dir"
+}

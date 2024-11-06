@@ -1,0 +1,23 @@
+# ninja log v6
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/CXX.dd	d6fad5f8b17dd04e
+11	823	7524295214869476	CMakeFiles/snakeGameOOp.dir/main.cpp.obj.ddi	4e5fe6f6399fd155
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.modmap	d6fad5f8b17dd04e
+2456	3696	7524295657126832	snakeGameOOp.exe	628583ac133817c6
+870	1017	7524295641267014	C:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/CMakeFiles/snakeGameOOp.dir/CXXModules.json	d6fad5f8b17dd04e
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/main.cpp.obj.modmap	d6fad5f8b17dd04e
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/Game.cpp.obj.modmap	d6fad5f8b17dd04e
+186	1737	7524275803759979	CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj.ddi	ebf9b8cfe945507
+1429	3097	7524295229049744	CMakeFiles/snakeGameOOp.dir/main.cpp.obj	69691db8bb2b2520
+338	2230	7524276349646078	CMakeFiles/snakeGameOOp.dir/Food.cpp.obj.ddi	e0db12578f5b13f6
+10	645	7525781207753070	build.ninja	2a3416ae0498bc29
+105	1338	7524276347318889	CMakeFiles/snakeGameOOp.dir/MovableGameObject.cpp.obj.ddi	fa8e11b3564c8741
+218	1770	7524276348444291	CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.ddi	624d0d88e2bba51e
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/Food.cpp.obj.modmap	d6fad5f8b17dd04e
+11	869	7524295632674786	CMakeFiles/snakeGameOOp.dir/Game.cpp.obj.ddi	d80b0ffb2f7df92c
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/MovableGameObject.cpp.obj.modmap	d6fad5f8b17dd04e
+870	1017	7524295641267014	CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj.modmap	d6fad5f8b17dd04e
+2893	4572	7524276375191239	CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj	899321f7b39ed9b2
+2819	5024	7524276374453183	CMakeFiles/snakeGameOOp.dir/MovableGameObject.cpp.obj	3b91970abe945531
+2974	6055	7524276375999074	CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj	9d573a8d309d302a
+3057	6489	7524276376836812	CMakeFiles/snakeGameOOp.dir/Food.cpp.obj	d6040c178929359c
+1018	2455	7524295642756115	CMakeFiles/snakeGameOOp.dir/Game.cpp.obj	3409b494d9db05ac
