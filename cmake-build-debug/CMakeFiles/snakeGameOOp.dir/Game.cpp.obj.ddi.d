@@ -253,4 +253,7 @@ CMakeFiles\snakeGameOOp.dir\Game.cpp.obj.ddi: \
  C:/SFML/include/SFML/Graphics/Sprite.hpp \
  C:/SFML/include/SFML/Graphics/Text.hpp \
  C:/SFML/include/SFML/Graphics/VertexBuffer.hpp \
- C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h
+ C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h \
+ C:/msys64/mingw64/include/c++/14.2.0/iostream \
+ C:/msys64/mingw64/include/c++/14.2.0/istream \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/istream.tcc

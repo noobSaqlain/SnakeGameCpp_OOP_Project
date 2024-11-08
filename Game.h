@@ -1,39 +1,45 @@
-//
-// Created by LENOVO on 04/11/2024.
-//
-
 #ifndef GAME_H
 #define GAME_H
 
 #include "Snake.h"
 #include "Food.h"
-// #include "ScoreManager.h"
-// #include "UIManager.h"
-// #include "Board.h"
+#include <SFML/Graphics.hpp>
 
-using namespace sf;
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+#define TILE_SIZE 25
+
 class Game {
 private:
-    //Snake snake;
+    int gameState;  // 0 for main menu, 1 for game
     Food food;
-    // ScoreManager scoreManager;
-    // UIManager uiManager;
-    // Board board;
-    bool isRunning;
-    bool isPaused;
-    const int tileSize = 25;
+    Snake snake;
+    int score = 0;
+
+    //  rect shape for buttons
+    sf::RectangleShape startButton; // main page start button
+    sf::RectangleShape scoreButton; // score page history button
+    sf::RectangleShape restartButton; // restart button on gameover screen
+
+    // Texts
+    sf::Text startText; /// main start text
+    sf::Text scoreText; // score text of snake
+    sf::Text gameOverText; // final game over text when collision
+    sf::Text restartText; // restart button text
+
+
+    // Font for text
+    sf::Font font;
+
 public:
     Game();
-    // void startGame();
-    // void pauseGame();
-    // void updateGame();
-    // void endGame();
-    // void checkCollisions();
-    void draw(RenderWindow& window);
+    void build();
+    void handleEvents(sf::RenderWindow &window);
+    void drawMainMenu(sf::RenderWindow &window);
+    void drawGame(sf::RenderWindow &window);
+    void drawRestart(sf::RenderWindow &window);
+    void drawRestartButton(sf::RenderWindow &window);
+    void initButtons();
 };
 
 #endif
-
-
-
-

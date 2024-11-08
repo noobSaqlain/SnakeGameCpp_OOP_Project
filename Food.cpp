@@ -3,16 +3,33 @@
 //
 
 #include "Food.h"
-
-
 #include "Snake.h"
-#include <cstdlib>
+#include <SFML/Graphics.hpp>
+
+Food::Food(int startX, int startY, int tilesize)
+    : tilesize(tilesize), MovableGameObject(startX, startY) {}
+
 
 void Food::generateNewPosition(int boardWidth, int boardHeight) {
-    x = rand() % boardWidth;
-    y = rand() % boardHeight;
+    x = (rand() % (boardWidth / tilesize)) * tilesize;
+    y = (rand() % (boardHeight / tilesize)) * tilesize;
 }
 
 bool Food::checkIfEaten(const Snake& snake) const {
     return (x == snake.getSegments()[0].x && y == snake.getSegments()[0].y);
 }
+void Food::setFoodPosition(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+
+void Food::drawFood(sf::RenderWindow &window) {
+    sf::CircleShape circle(tilesize / 2);
+    circle.setFillColor(sf::Color::Red);
+    circle.setPosition(static_cast<float>(x), static_cast<float>(y));
+    window.draw(circle);
+}
+
+
+

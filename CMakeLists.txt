@@ -13,6 +13,13 @@ add_executable(snakeGameOOp main.cpp
         Food.h
         Game.cpp
         Game.h
+        StorageManager.h
+        ScoreManager.cpp
+        ScoreManager.h
+        Board.cpp
+        Board.h
+        cmake-build-debug/UIManager.cpp
+        cmake-build-debug/UIManager.h
 )
 
 set(SFML_STATIC_LIBRARIES TRUE)

@@ -14,7 +14,7 @@ protected:
 
 public:
     MovableGameObject(int startX, int startY) : x(startX), y(startY) {}
-    virtual void move() = 0;
+    //virtual void move() = 0;
     sf::Vector2i getPosition() const { return sf::Vector2i(x, y); }
 };
 

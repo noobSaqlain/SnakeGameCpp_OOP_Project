@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles\\snakeGameOOp.dir\\ScoreManager.cpp.obj",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

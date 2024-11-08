@@ -70673,12 +70673,15 @@ protected:
 
 public:
     MovableGameObject(int startX, int startY) : x(startX), y(startY) {}
-    virtual void move() = 0;
+
     sf::Vector2i getPosition() const { return sf::Vector2i(x, y); }
 };
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h" 2
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h" 1
-# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h"
+
+
+
+
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/SnakeSegment.h" 1
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/SnakeSegment.h"
 class SnakeSegment {
@@ -70687,7 +70690,8 @@ public:
 
     SnakeSegment(int x, int y) : x(x), y(y) {}
 };
-# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h" 2
+# 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h" 2
+
 
 
 enum class Direction { Up, Down, Left, Right };
@@ -70697,38 +70701,57 @@ private:
     std::vector<SnakeSegment> segments;
     Direction direction;
     int speed;
+    int tileSize;
 
 public:
-    Snake(int startX, int startY, int initialSpeed);
-    void move() override;
+    Snake(int startX, int startY, int initialSpeed, int tileSize);
+
+    void move();
     void grow();
     void changeDirection(Direction newDirection);
     bool checkSelfCollision() const;
+    bool checkCollision() const;
     void resetSnake();
+    void draw(sf::RenderWindow& window) const;
     const std::vector<SnakeSegment>& getSegments() const { return segments; }
 };
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h" 2
 
 class Food : public MovableGameObject {
+    const int tilesize;
+
 public:
-    Food(int startX, int startY) : MovableGameObject(startX, startY) {}
+    Food(int startX, int startY,int tilesize);
     void generateNewPosition(int boardWidth, int boardHeight);
     bool checkIfEaten(const Snake& snake) const;
+    void drawFood( sf::RenderWindow& window);
+    void setFoodPosition(int x, int y);
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.cpp" 2
 
 
-# 1 "C:/msys64/mingw64/include/c++/14.2.0/cstdlib" 1 3
-# 39 "C:/msys64/mingw64/include/c++/14.2.0/cstdlib" 3
-       
-# 40 "C:/msys64/mingw64/include/c++/14.2.0/cstdlib" 3
-# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.cpp" 2
+
+Food::Food(int startX, int startY, int tilesize)
+    : tilesize(tilesize), MovableGameObject(startX, startY) {}
+
 
 void Food::generateNewPosition(int boardWidth, int boardHeight) {
-    x = rand() % boardWidth;
-    y = rand() % boardHeight;
+    x = (rand() % (boardWidth / tilesize)) * tilesize;
+    y = (rand() % (boardHeight / tilesize)) * tilesize;
 }
 
 bool Food::checkIfEaten(const Snake& snake) const {
     return (x == snake.getSegments()[0].x && y == snake.getSegments()[0].y);
+}
+void Food::setFoodPosition(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+
+void Food::drawFood(sf::RenderWindow &window) {
+    sf::CircleShape circle(tilesize / 2);
+    circle.setFillColor(sf::Color::Red);
+    circle.setPosition(static_cast<float>(x), static_cast<float>(y));
+    window.draw(circle);
 }

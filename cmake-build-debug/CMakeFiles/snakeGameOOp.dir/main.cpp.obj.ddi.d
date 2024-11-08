@@ -1,52 +1,26 @@
 CMakeFiles\snakeGameOOp.dir\main.cpp.obj.ddi: \
  C:/Users/LENOVO/Desktop/snakeGameOOp/main.cpp \
- C:/SFML/include/SFML/Graphics.hpp C:/SFML/include/SFML/Window.hpp \
- C:/SFML/include/SFML/System.hpp C:/SFML/include/SFML/Config.hpp \
- C:/SFML/include/SFML/System/Clock.hpp \
- C:/SFML/include/SFML/System/Export.hpp \
- C:/SFML/include/SFML/System/Time.hpp C:/SFML/include/SFML/System/Err.hpp \
- C:/msys64/mingw64/include/c++/14.2.0/ostream \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h \
+ C:/msys64/mingw64/include/c++/14.2.0/vector \
  C:/msys64/mingw64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/os_defines.h \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/cpu_defines.h \
  C:/msys64/mingw64/include/c++/14.2.0/pstl/pstl_config.h \
- C:/msys64/mingw64/include/c++/14.2.0/ios \
- C:/msys64/mingw64/include/c++/14.2.0/iosfwd \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stringfwd.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/memoryfwd.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/postypes.h \
- C:/msys64/mingw64/include/c++/14.2.0/cwchar \
- C:/msys64/mingw64/include/wchar.h C:/msys64/mingw64/include/corecrt.h \
- C:/msys64/mingw64/include/_mingw.h \
- C:/msys64/mingw64/include/_mingw_mac.h \
- C:/msys64/mingw64/include/_mingw_secapi.h \
- C:/msys64/mingw64/include/vadefs.h \
- C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
- C:/msys64/mingw64/include/corecrt_stdio_config.h \
- C:/msys64/mingw64/include/corecrt_wstdlib.h \
- C:/msys64/mingw64/include/_mingw_off_t.h \
- C:/msys64/mingw64/include/_mingw_stat64.h \
- C:/msys64/mingw64/include/swprintf.inl \
- C:/msys64/mingw64/include/sec_api/wchar_s.h \
- C:/msys64/mingw64/include/c++/14.2.0/exception \
- C:/msys64/mingw64/include/c++/14.2.0/bits/exception.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/version.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/exception_ptr.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_algobase.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/functexcept.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/exception_defines.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/cxxabi_init_exception.h \
- C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stddef.h \
- C:/msys64/mingw64/include/stddef.h C:/msys64/mingw64/include/crtdefs.h \
- C:/msys64/mingw64/include/c++/14.2.0/typeinfo \
- C:/msys64/mingw64/include/c++/14.2.0/bits/hash_bytes.h \
- C:/msys64/mingw64/include/c++/14.2.0/new \
- C:/msys64/mingw64/include/c++/14.2.0/bits/move.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/cpp_type_traits.h \
+ C:/msys64/mingw64/include/c++/14.2.0/ext/type_traits.h \
+ C:/msys64/mingw64/include/c++/14.2.0/ext/numeric_traits.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_pair.h \
  C:/msys64/mingw64/include/c++/14.2.0/type_traits \
- C:/msys64/mingw64/include/c++/14.2.0/bits/nested_exception.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/char_traits.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/version.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/move.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/utility.h \
  C:/msys64/mingw64/include/c++/14.2.0/compare \
  C:/msys64/mingw64/include/c++/14.2.0/concepts \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_construct.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/stl_iterator_base_types.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/iterator_concepts.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/ptr_traits.h \
@@ -54,6 +28,73 @@ CMakeFiles\snakeGameOOp.dir\main.cpp.obj.ddi: \
  C:/msys64/mingw64/include/c++/14.2.0/bits/stl_iterator_base_funcs.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/concept_check.h \
  C:/msys64/mingw64/include/c++/14.2.0/debug/assertions.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_iterator.h \
+ C:/msys64/mingw64/include/c++/14.2.0/new \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/exception.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_construct.h \
+ C:/msys64/mingw64/include/c++/14.2.0/debug/debug.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/predefined_ops.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bit \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/allocator.h \
+ C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/new_allocator.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/memoryfwd.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_uninitialized.h \
+ C:/msys64/mingw64/include/c++/14.2.0/ext/alloc_traits.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/alloc_traits.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_vector.h \
+ C:/msys64/mingw64/include/c++/14.2.0/initializer_list \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_bvector.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/functional_hash.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/hash_bytes.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/refwrap.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/invoke.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stl_function.h \
+ C:/msys64/mingw64/include/c++/14.2.0/backward/binders.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/range_access.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/vector.tcc \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/memory_resource.h \
+ C:/msys64/mingw64/include/c++/14.2.0/cstddef \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/stddef.h \
+ C:/msys64/mingw64/include/stddef.h C:/msys64/mingw64/include/crtdefs.h \
+ C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
+ C:/msys64/mingw64/include/_mingw_mac.h \
+ C:/msys64/mingw64/include/_mingw_secapi.h \
+ C:/msys64/mingw64/include/vadefs.h \
+ C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/uses_allocator.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/uses_allocator_args.h \
+ C:/msys64/mingw64/include/c++/14.2.0/tuple \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/ranges_util.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/ranges_base.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/max_size_type.h \
+ C:/msys64/mingw64/include/c++/14.2.0/numbers \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/SnakeSegment.h \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h \
+ C:/SFML/include/SFML/Graphics.hpp C:/SFML/include/SFML/Window.hpp \
+ C:/SFML/include/SFML/System.hpp C:/SFML/include/SFML/Config.hpp \
+ C:/SFML/include/SFML/System/Clock.hpp \
+ C:/SFML/include/SFML/System/Export.hpp \
+ C:/SFML/include/SFML/System/Time.hpp C:/SFML/include/SFML/System/Err.hpp \
+ C:/msys64/mingw64/include/c++/14.2.0/ostream \
+ C:/msys64/mingw64/include/c++/14.2.0/ios \
+ C:/msys64/mingw64/include/c++/14.2.0/iosfwd \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/stringfwd.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/postypes.h \
+ C:/msys64/mingw64/include/c++/14.2.0/cwchar \
+ C:/msys64/mingw64/include/wchar.h \
+ C:/msys64/mingw64/include/corecrt_stdio_config.h \
+ C:/msys64/mingw64/include/corecrt_wstdlib.h \
+ C:/msys64/mingw64/include/_mingw_off_t.h \
+ C:/msys64/mingw64/include/_mingw_stat64.h \
+ C:/msys64/mingw64/include/swprintf.inl \
+ C:/msys64/mingw64/include/sec_api/wchar_s.h \
+ C:/msys64/mingw64/include/c++/14.2.0/exception \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/exception_ptr.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/cxxabi_init_exception.h \
+ C:/msys64/mingw64/include/c++/14.2.0/typeinfo \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/nested_exception.h \
+ C:/msys64/mingw64/include/c++/14.2.0/bits/char_traits.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/localefwd.h \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++locale.h \
  C:/msys64/mingw64/include/c++/14.2.0/clocale \
@@ -82,36 +123,10 @@ CMakeFiles\snakeGameOOp.dir\main.cpp.obj.ddi: \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/atomic_word.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/locale_classes.h \
  C:/msys64/mingw64/include/c++/14.2.0/string \
- C:/msys64/mingw64/include/c++/14.2.0/bits/allocator.h \
- C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/new_allocator.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/functexcept.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/cpp_type_traits.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/ostream_insert.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/cxxabi_forced.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_iterator.h \
- C:/msys64/mingw64/include/c++/14.2.0/ext/type_traits.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_function.h \
- C:/msys64/mingw64/include/c++/14.2.0/backward/binders.h \
- C:/msys64/mingw64/include/c++/14.2.0/ext/numeric_traits.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_algobase.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_pair.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/utility.h \
- C:/msys64/mingw64/include/c++/14.2.0/debug/debug.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/predefined_ops.h \
- C:/msys64/mingw64/include/c++/14.2.0/bit \
- C:/msys64/mingw64/include/c++/14.2.0/bits/refwrap.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/invoke.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/range_access.h \
- C:/msys64/mingw64/include/c++/14.2.0/initializer_list \
  C:/msys64/mingw64/include/c++/14.2.0/bits/basic_string.h \
- C:/msys64/mingw64/include/c++/14.2.0/ext/alloc_traits.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/alloc_traits.h \
  C:/msys64/mingw64/include/c++/14.2.0/string_view \
- C:/msys64/mingw64/include/c++/14.2.0/bits/functional_hash.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/ranges_base.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/max_size_type.h \
- C:/msys64/mingw64/include/c++/14.2.0/numbers \
  C:/msys64/mingw64/include/c++/14.2.0/bits/string_view.tcc \
  C:/msys64/mingw64/include/c++/14.2.0/ext/string_conversions.h \
  C:/msys64/mingw64/include/c++/14.2.0/cstdlib \
@@ -125,12 +140,6 @@ CMakeFiles\snakeGameOOp.dir\main.cpp.obj.ddi: \
  C:/msys64/mingw64/include/c++/14.2.0/cerrno \
  C:/msys64/mingw64/include/c++/14.2.0/bits/charconv.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/basic_string.tcc \
- C:/msys64/mingw64/include/c++/14.2.0/bits/memory_resource.h \
- C:/msys64/mingw64/include/c++/14.2.0/cstddef \
- C:/msys64/mingw64/include/c++/14.2.0/bits/uses_allocator.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/uses_allocator_args.h \
- C:/msys64/mingw64/include/c++/14.2.0/tuple \
- C:/msys64/mingw64/include/c++/14.2.0/bits/ranges_util.h \
  C:/msys64/mingw64/include/c++/14.2.0/bits/locale_classes.tcc \
  C:/msys64/mingw64/include/c++/14.2.0/system_error \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/error_constants.h \
@@ -200,11 +209,6 @@ CMakeFiles\snakeGameOOp.dir\main.cpp.obj.ddi: \
  C:/SFML/include/SFML/Window/Sensor.hpp \
  C:/SFML/include/SFML/Window/Touch.hpp \
  C:/SFML/include/SFML/Window/VideoMode.hpp \
- C:/msys64/mingw64/include/c++/14.2.0/vector \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_uninitialized.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_vector.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/stl_bvector.h \
- C:/msys64/mingw64/include/c++/14.2.0/bits/vector.tcc \
  C:/SFML/include/SFML/Window/Window.hpp \
  C:/SFML/include/SFML/Window/WindowBase.hpp \
  C:/SFML/include/SFML/Window/Vulkan.hpp \
@@ -249,11 +253,4 @@ CMakeFiles\snakeGameOOp.dir\main.cpp.obj.ddi: \
  C:/SFML/include/SFML/Graphics/Sprite.hpp \
  C:/SFML/include/SFML/Graphics/Text.hpp \
  C:/SFML/include/SFML/Graphics/VertexBuffer.hpp \
- C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h \
- C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h \
- C:/Users/LENOVO/Desktop/snakeGameOOp/SnakeSegment.h \
- C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h \
- C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h \
- C:/msys64/mingw64/include/c++/14.2.0/iostream \
- C:/msys64/mingw64/include/c++/14.2.0/istream \
- C:/msys64/mingw64/include/c++/14.2.0/bits/istream.tcc
+ C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h
