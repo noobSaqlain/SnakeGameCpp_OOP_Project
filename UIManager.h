@@ -34,6 +34,7 @@ class UIManager {
     sf::Text restartText; // restart button text
     sf::Text backToMenuText; // back to menu text when gameover
     sf::Text scorePageBacktext; // back text when on score page
+    sf::Text score; // score while run
 
     sf::Font font;
   public:
@@ -46,9 +47,11 @@ class UIManager {
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
      void drawScorePage(sf::RenderWindow& window);
-    void drawScorePageBackButton(sf::RenderWindow& window);
-    void setIsScorePageOpened(bool state);
-    bool getIsScorePageOpened() const;
+     void drawScorePageBackButton(sf::RenderWindow& window);
+     void setIsScorePageOpened(bool state);
+     bool getIsScorePageOpened() const;
+     void updateScore();
+    void drawScore(sf::RenderWindow& window);
 };
 
 

@@ -50,4 +50,22 @@ void ScoreManager::displayScore(sf::RenderWindow &window) {
     }
 }
 
+void ScoreManager::resetScore() {
+    currentScore = 0;
+}
+int ScoreManager::getHighestScore() const{
+    return highestScore;
+}
+
+void ScoreManager::updateScore() {
+    std::cout << currentScore;
+    currentScore++;
+}
+
+int ScoreManager::getCurrScore() const {
+    return currentScore;
+}
+
+
+
 

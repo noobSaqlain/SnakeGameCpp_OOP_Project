@@ -61662,7 +61662,8 @@ public:
     ~ScoreManager();
     void updateScore();
     void resetScore();
-    int getHighestScore();
+    int getHighestScore()const ;
+    int getCurrScore()const;
 
 
     void displayScore(sf::RenderWindow& window);
@@ -73026,4 +73027,20 @@ void ScoreManager::displayScore(sf::RenderWindow &window) {
         scoreText.setPosition(100, startY + i * offsetY);
         window.draw(scoreText);
     }
+}
+
+void ScoreManager::resetScore() {
+    currentScore = 0;
+}
+int ScoreManager::getHighestScore() const{
+    return highestScore;
+}
+
+void ScoreManager::updateScore() {
+    std::cout << currentScore;
+    currentScore++;
+}
+
+int ScoreManager::getCurrScore() const {
+    return currentScore;
 }

@@ -16,10 +16,6 @@ Game::~Game() {
     if (uiManager) delete uiManager;
 }
 
-
-
-
-
 void Game::build() {
     RenderWindow window(VideoMode(board.getScreenWidth(), board.getScreenHeight()), "Snake Game");
 
@@ -36,12 +32,11 @@ void Game::build() {
         if (isRunning && timer > delay) { //// frames
             snake.move();
             timer = 0;
-
             if (snake.checkCollision() || snake.checkSelfCollision()) {
                 setStates(false, false, true);  // Set game over state
             } else if (food.checkIfEaten(snake)) {
                 snake.grow();
-
+                uiManager->updateScore();
                 food.generateNewPosition(SCREEN_WIDTH, SCREEN_HEIGHT);
             }
         }
@@ -57,6 +52,7 @@ void Game::build() {
                 uiManager->drawMainMenu(window); // Draw the main menu
         } else if (isRunning) {
             uiManager->drawGame(window,snake, food, board);     // Draw the game
+            uiManager->drawScore(window);
         }
         window.display();
 

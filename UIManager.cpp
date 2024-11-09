@@ -112,6 +112,14 @@ void UIManager::initButtons()  {
         scorePageBackButton.getPosition().y + scorePageBackButton.getSize().y / 2
     );
 
+    ////score Text
+    score.setFont(font);
+    score.setString(std::to_string(scoreManager->getCurrScore()));
+    score.setCharacterSize(50);
+    score.setFillColor(sf::Color::Red);
+    score.setPosition(10, 10);  // Example: Top-left corner
+
+
 }
 
 void UIManager::drawMainMenu(sf::RenderWindow &window) { ////// two buttons. one for start game and other for score history
@@ -127,7 +135,6 @@ void UIManager::drawGame(sf::RenderWindow &window,Snake& snake, Food& food, Boar
 }
 
 void UIManager::drawRestart(sf::RenderWindow &window) {
-
     // Display Game Over text
     gameOverText.setFont(font);
     gameOverText.setFillColor(sf::Color::Red);
@@ -142,7 +149,27 @@ void UIManager::drawRestart(sf::RenderWindow &window) {
     drawRestartButton(window);
     window.draw(backToMenuButton);
     window.draw(backToMenuText);
+
+    // Display "Score:" label (smaller font)
+    sf::Text scoreLabel;
+    scoreLabel.setFont(font);  // Ensure the font is the same as the score text
+    scoreLabel.setString("Score:");  // Label text
+    scoreLabel.setCharacterSize(20);  // Smaller font size for the label
+    scoreLabel.setFillColor(sf::Color::White);  // Color for the label
+    scoreLabel.setPosition(SCREEN_WIDTH / 2 - 35, SCREEN_HEIGHT / 2 - 180);  // Position above the actual score
+
+    window.draw(scoreLabel);  // Draw the "Score:" label
+
+    // Display current score
+    score.setFont(font);  // Set the font again (if necessary)
+    score.setString(std::to_string(scoreManager->getCurrScore()));  // Actual score
+    score.setCharacterSize(100);  // Larger font size for the score
+    score.setFillColor(sf::Color::White);  // Color for the score text
+    score.setPosition(SCREEN_WIDTH / 2 - 40 , SCREEN_HEIGHT / 2 - 140);  // Position below "Score:" label
+
+    window.draw(score);  // Draw the score text
 }
+
 
 
 void UIManager::drawRestartButton(sf::RenderWindow &window) {
@@ -195,4 +222,12 @@ void UIManager::drawScorePageBackButton(sf::RenderWindow& window) {
     window.draw(scorePageBacktext);
 }
 
+void UIManager::updateScore() {
+    scoreManager->updateScore();
+}
+
+void UIManager::drawScore(sf::RenderWindow& window) {
+    score.setString(std::to_string(scoreManager->getCurrScore())); /// everytime is should get updated
+    window.draw(score);
+}
 

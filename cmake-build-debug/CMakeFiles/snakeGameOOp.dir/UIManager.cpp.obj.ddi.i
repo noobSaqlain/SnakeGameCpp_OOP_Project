@@ -67029,7 +67029,8 @@ public:
     ~ScoreManager();
     void updateScore();
     void resetScore();
-    int getHighestScore();
+    int getHighestScore()const ;
+    int getCurrScore()const;
 
 
     void displayScore(sf::RenderWindow& window);
@@ -70800,6 +70801,7 @@ class UIManager {
     sf::Text restartText;
     sf::Text backToMenuText;
     sf::Text scorePageBacktext;
+    sf::Text score;
 
     sf::Font font;
   public:
@@ -70812,9 +70814,11 @@ class UIManager {
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
      void drawScorePage(sf::RenderWindow& window);
-    void drawScorePageBackButton(sf::RenderWindow& window);
-    void setIsScorePageOpened(bool state);
-    bool getIsScorePageOpened() const;
+     void drawScorePageBackButton(sf::RenderWindow& window);
+     void setIsScorePageOpened(bool state);
+     bool getIsScorePageOpened() const;
+     void updateScore();
+    void drawScore(sf::RenderWindow& window);
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
 
@@ -75758,6 +75762,14 @@ void UIManager::initButtons() {
         scorePageBackButton.getPosition().y + scorePageBackButton.getSize().y / 2
     );
 
+
+    score.setFont(font);
+    score.setString(std::to_string(scoreManager->getCurrScore()));
+    score.setCharacterSize(50);
+    score.setFillColor(sf::Color::Red);
+    score.setPosition(10, 10);
+
+
 }
 
 void UIManager::drawMainMenu(sf::RenderWindow &window) {
@@ -75774,7 +75786,6 @@ void UIManager::drawGame(sf::RenderWindow &window,Snake& snake, Food& food, Boar
 
 void UIManager::drawRestart(sf::RenderWindow &window) {
 
-
     gameOverText.setFont(font);
     gameOverText.setFillColor(sf::Color::Red);
     gameOverText.setString("Game Over");
@@ -75788,7 +75799,27 @@ void UIManager::drawRestart(sf::RenderWindow &window) {
     drawRestartButton(window);
     window.draw(backToMenuButton);
     window.draw(backToMenuText);
+
+
+    sf::Text scoreLabel;
+    scoreLabel.setFont(font);
+    scoreLabel.setString("Score:");
+    scoreLabel.setCharacterSize(20);
+    scoreLabel.setFillColor(sf::Color::White);
+    scoreLabel.setPosition(800 / 2 - 40, 600 / 2 - 180);
+
+    window.draw(scoreLabel);
+
+
+    score.setFont(font);
+    score.setString(std::to_string(scoreManager->getCurrScore()));
+    score.setCharacterSize(100);
+    score.setFillColor(sf::Color::White);
+    score.setPosition(800 / 2 - 40 , 600 / 2 - 140);
+
+    window.draw(score);
 }
+
 
 
 void UIManager::drawRestartButton(sf::RenderWindow &window) {
@@ -75839,4 +75870,13 @@ void UIManager::setIsScorePageOpened(const bool state) {
 void UIManager::drawScorePageBackButton(sf::RenderWindow& window) {
     window.draw(scorePageBackButton);
     window.draw(scorePageBacktext);
+}
+
+void UIManager::updateScore() {
+    scoreManager->updateScore();
+}
+
+void UIManager::drawScore(sf::RenderWindow& window) {
+    score.setString(std::to_string(scoreManager->getCurrScore()));
+    window.draw(score);
 }

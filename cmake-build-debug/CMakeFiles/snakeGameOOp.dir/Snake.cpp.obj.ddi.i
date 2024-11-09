@@ -70744,7 +70744,8 @@ public:
     ~ScoreManager();
     void updateScore();
     void resetScore();
-    int getHighestScore();
+    int getHighestScore()const ;
+    int getCurrScore()const;
 
 
     void displayScore(sf::RenderWindow& window);

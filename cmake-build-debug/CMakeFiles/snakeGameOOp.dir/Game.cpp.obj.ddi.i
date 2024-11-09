@@ -70742,7 +70742,8 @@ public:
     ~ScoreManager();
     void updateScore();
     void resetScore();
-    int getHighestScore();
+    int getHighestScore()const ;
+    int getCurrScore()const;
 
 
     void displayScore(sf::RenderWindow& window);
@@ -72415,6 +72416,7 @@ class UIManager {
     sf::Text restartText;
     sf::Text backToMenuText;
     sf::Text scorePageBacktext;
+    sf::Text score;
 
     sf::Font font;
   public:
@@ -72427,9 +72429,11 @@ class UIManager {
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
      void drawScorePage(sf::RenderWindow& window);
-    void drawScorePageBackButton(sf::RenderWindow& window);
-    void setIsScorePageOpened(bool state);
-    bool getIsScorePageOpened() const;
+     void drawScorePageBackButton(sf::RenderWindow& window);
+     void setIsScorePageOpened(bool state);
+     bool getIsScorePageOpened() const;
+     void updateScore();
+    void drawScore(sf::RenderWindow& window);
 };
 # 5 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
 using namespace sf;
@@ -72445,10 +72449,6 @@ Game::Game() : food(0, 0, 25),
 Game::~Game() {
     if (uiManager) delete uiManager;
 }
-
-
-
-
 
 void Game::build() {
     RenderWindow window(VideoMode(board.getScreenWidth(), board.getScreenHeight()), "Snake Game");
@@ -72466,12 +72466,11 @@ void Game::build() {
         if (isRunning && timer > delay) {
             snake.move();
             timer = 0;
-
             if (snake.checkCollision() || snake.checkSelfCollision()) {
                 setStates(false, false, true);
             } else if (food.checkIfEaten(snake)) {
                 snake.grow();
-
+                uiManager->updateScore();
                 food.generateNewPosition(800, 600);
             }
         }
@@ -72487,6 +72486,7 @@ void Game::build() {
                 uiManager->drawMainMenu(window);
         } else if (isRunning) {
             uiManager->drawGame(window,snake, food, board);
+            uiManager->drawScore(window);
         }
         window.display();
 
