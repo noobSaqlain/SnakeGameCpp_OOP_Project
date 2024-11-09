@@ -50,7 +50,11 @@ void Game::build() {
         if (isGameOver) {
             uiManager->drawRestart(window);  // Draw the game-over screen
         } else if (isPaused) {
-            uiManager->drawMainMenu(window); // Draw the main menu
+
+            if(uiManager->getIsScorePageOpened())
+                uiManager->drawScorePage(window);
+            else
+                uiManager->drawMainMenu(window); // Draw the main menu
         } else if (isRunning) {
             uiManager->drawGame(window,snake, food, board);     // Draw the game
         }

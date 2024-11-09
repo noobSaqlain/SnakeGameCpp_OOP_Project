@@ -4,7 +4,10 @@
 
 #include "UIManager.h"
 
+#include <fstream>
 #include <iostream>
+#include <sstream>
+
 #include "Game.h"
 
 
@@ -130,7 +133,10 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
     if (game->getIsPausedStatus() && startButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         game->setStates(false, true, false);  // Start the game, set running state to true and pause to false
     }
-
+    //score page when game is paused
+    if(game->getIsPausedStatus() && scoreButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        isScorePageOpened = true;
+    }
     // Restart game if the game is over and the restart button is clicked
     else if (game->getIsGameOverStatus() && restartButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         game->setStates(false, true, false);  // Restart the game, set running state to true
@@ -147,4 +153,86 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
         // Optionally reset score and game state if needed
     }
 }
+
+void UIManager::drawScorePage(sf::RenderWindow &window) {
+   try {
+       std::ifstream file("C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt"); //encountered a problem with relative path
+       if (!file.is_open()) {
+           std::cerr << "Error: Could not open score.txt" << std::endl;
+           return;
+       }
+
+       // Structure to store score, date, and time
+       struct ScoreEntry {
+           std::string score;
+           std::string date;
+           std::string time;
+       };
+
+       std::vector<ScoreEntry> scores;
+       std::string line;
+
+       // Read each line from the file and parse the score, date, and time
+       while (std::getline(file, line)) {
+           std::istringstream lineStream(line);
+           ScoreEntry entry;
+
+           // Parse the line as comma-separated values
+           std::getline(lineStream, entry.score, ',');
+           std::getline(lineStream, entry.date, ',');
+           std::getline(lineStream, entry.time, ',');
+
+           scores.push_back(entry);
+       }
+
+       file.close();
+
+       // Font setup
+       sf::Font font;
+       if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
+           std::cerr << "Error: Could not load font." << std::endl;
+           return;
+       }
+
+
+       sf::Text scoreText;
+       scoreText.setFont(font);
+       scoreText.setCharacterSize(35);
+       scoreText.setFillColor(sf::Color::White);
+
+       scoreText.setString("scores");
+       scoreText.setCharacterSize(24);
+       // Set up position for displaying text
+       float startY = 100.0f;
+       float offsetY = 40.0f; // Space between each entry
+
+
+       for (size_t i = 0; i < scores.size(); ++i) {
+           const ScoreEntry &entry = scores[i];
+
+           // Format the text to show the dynamic index, score, date, and time
+           scoreText.setString(std::to_string(i + 1) + " -   " + entry.score + "    " + entry.date + " " + entry.time);
+
+           // Position each entry on the screen
+           scoreText.setPosition(100, startY + i * offsetY);
+
+           // Draw the text on the window
+           window.draw(scoreText);
+       }
+   }catch (std::exception) {
+       isScorePageOpened = false;
+   }
+}
+
+
+
+
+bool UIManager::getIsScorePageOpened() const{
+    return isScorePageOpened;
+}
+void UIManager::setIsScorePageOpened(const bool state) {
+    this->isScorePageOpened = state;
+}
+
+
 

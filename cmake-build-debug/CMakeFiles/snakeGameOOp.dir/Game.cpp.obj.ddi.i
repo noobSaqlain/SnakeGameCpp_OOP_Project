@@ -72390,8 +72390,7 @@ class Game;
 
 class UIManager {
   private:
-     bool isRestartButtonClicked;
-     bool isPauseButtonClicked;
+     bool isScorePageOpened = false;
     Game* game;
 
 
@@ -72416,7 +72415,9 @@ class UIManager {
      void drawGame(sf::RenderWindow &window,Snake& snake, Food& food, Board& board);
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
-     void setGame(Game* game);
+     void drawScorePage(sf::RenderWindow& window);
+    void setIsScorePageOpened(bool state);
+    bool getIsScorePageOpened() const;
 };
 # 5 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
 using namespace sf;
@@ -72467,7 +72468,11 @@ void Game::build() {
         if (isGameOver) {
             uiManager->drawRestart(window);
         } else if (isPaused) {
-            uiManager->drawMainMenu(window);
+
+            if(uiManager->getIsScorePageOpened())
+                uiManager->drawScorePage(window);
+            else
+                uiManager->drawMainMenu(window);
         } else if (isRunning) {
             uiManager->drawGame(window,snake, food, board);
         }

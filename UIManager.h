@@ -16,8 +16,7 @@ class Game; /// to remove circular dependency b/w game and uimanager
 
 class UIManager {
   private:
-     bool isRestartButtonClicked;
-     bool isPauseButtonClicked;
+     bool isScorePageOpened = false;
     Game* game;
 
     //  rect shape for buttons
@@ -42,7 +41,9 @@ class UIManager {
      void drawGame(sf::RenderWindow &window,Snake& snake, Food& food, Board& board);
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
-     void setGame(Game* game);
+     void drawScorePage(sf::RenderWindow& window);
+    void setIsScorePageOpened(bool state);
+    bool getIsScorePageOpened() const;
 };
 
 
