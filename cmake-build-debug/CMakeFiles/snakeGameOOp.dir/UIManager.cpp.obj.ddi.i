@@ -66996,35 +66996,44 @@ private:
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 1
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 1
-
-
-
-
-
-
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h" 1
-# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
 
-# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+struct ScoreEntry {
+    std::string score;
+    std::string date;
+    std::string time;
+};
 class StorageManager {
-private:
+
+
     const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt";
 public:
-    void saveScore();
-    std::vector<std::string> loadScore();
+    void saveScore(const std::string& scoreData);
+    std::string getFileName() const;
+    std::vector<ScoreEntry> loadScore() const ;
 };
-# 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
 
 
-class ScoreManager : StorageManager{
-private:
-    int currentScore;
-    int highestScore;
+class ScoreManager{
+    int currentScore = 0;
+    int highestScore = 0;
+    StorageManager* storage;
+
+
 public:
+    ScoreManager();
+    ~ScoreManager();
     void updateScore();
     void resetScore();
     int getHighestScore();
-    void saveScore();
+
+
+    void displayScore(sf::RenderWindow& window);
+
 };
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 2
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h" 1
@@ -70769,18 +70778,20 @@ class Board {
 
 
 
+
 class Game;
 
 class UIManager {
   private:
      bool isScorePageOpened = false;
     Game* game;
-
+    ScoreManager* scoreManager;
 
     sf::RectangleShape startButton;
     sf::RectangleShape scoreButton;
     sf::RectangleShape restartButton;
     sf::RectangleShape backToMenuButton;
+    sf::RectangleShape scorePageBackButton;
 
 
     sf::Text startText;
@@ -70788,10 +70799,12 @@ class UIManager {
     sf::Text gameOverText;
     sf::Text restartText;
     sf::Text backToMenuText;
+    sf::Text scorePageBacktext;
 
     sf::Font font;
   public:
     UIManager(Game* gameInstance);
+    ~UIManager();
      void handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food);
      void initButtons();
      void drawMainMenu(sf::RenderWindow &window);
@@ -70799,6 +70812,7 @@ class UIManager {
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
      void drawScorePage(sf::RenderWindow& window);
+    void drawScorePageBackButton(sf::RenderWindow& window);
     void setIsScorePageOpened(bool state);
     bool getIsScorePageOpened() const;
 };
@@ -75612,7 +75626,6 @@ private:
     UIManager* uiManager;
     Food food;
     Snake snake;
-    ScoreManager scoreManager;
     Board board;
 
     float timer;
@@ -75645,7 +75658,12 @@ public:
 
 
 UIManager::UIManager(Game* gameInstance) : game(gameInstance) {
+    scoreManager = new ScoreManager();
     initButtons();
+}
+UIManager::~UIManager() {
+    delete game;
+    delete scoreManager;
 }
 
 
@@ -75723,6 +75741,23 @@ void UIManager::initButtons() {
         backToMenuButton.getPosition().x + backToMenuButton.getSize().x / 2,
         backToMenuButton.getPosition().y + backToMenuButton.getSize().y / 2
     );
+
+
+    scorePageBackButton.setSize(sf::Vector2f(100,40));
+    scorePageBackButton.setFillColor(sf::Color::Red);
+    scorePageBackButton.setPosition(50,50);
+
+    scorePageBacktext.setFont(font);
+    scorePageBacktext.setString("Back");
+    scorePageBacktext.setCharacterSize(24);
+    scorePageBacktext.setFillColor(sf::Color::Black);
+    sf::FloatRect scorePageBackTextRect = scorePageBackButton.getLocalBounds();
+    scorePageBacktext.setOrigin(scorePageBackTextRect.width / 2.0f, scorePageBackTextRect.height / 2.0f);
+    scorePageBacktext.setPosition(
+        scorePageBackButton.getPosition().x + scorePageBackButton.getSize().x / 2,
+        scorePageBackButton.getPosition().y + scorePageBackButton.getSize().y / 2
+    );
+
 }
 
 void UIManager::drawMainMenu(sf::RenderWindow &window) {
@@ -75767,8 +75802,10 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
         game->setStates(false, true, false);
     }
 
-    if(game->getIsPausedStatus() && scoreButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+    else if(game->getIsPausedStatus() && scoreButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         isScorePageOpened = true;
+    }else if(isScorePageOpened && scorePageBackButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        isScorePageOpened = false;
     }
 
     else if (game->getIsGameOverStatus() && restartButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
@@ -75788,81 +75825,18 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
 }
 
 void UIManager::drawScorePage(sf::RenderWindow &window) {
-   try {
-       std::ifstream file("C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt");
-       if (!file.is_open()) {
-           std::cerr << "Error: Could not open score.txt" << std::endl;
-           return;
-       }
-
-
-       struct ScoreEntry {
-           std::string score;
-           std::string date;
-           std::string time;
-       };
-
-       std::vector<ScoreEntry> scores;
-       std::string line;
-
-
-       while (std::getline(file, line)) {
-           std::istringstream lineStream(line);
-           ScoreEntry entry;
-
-
-           std::getline(lineStream, entry.score, ',');
-           std::getline(lineStream, entry.date, ',');
-           std::getline(lineStream, entry.time, ',');
-
-           scores.push_back(entry);
-       }
-
-       file.close();
-
-
-       sf::Font font;
-       if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
-           std::cerr << "Error: Could not load font." << std::endl;
-           return;
-       }
-
-
-       sf::Text scoreText;
-       scoreText.setFont(font);
-       scoreText.setCharacterSize(35);
-       scoreText.setFillColor(sf::Color::White);
-
-       scoreText.setString("scores");
-       scoreText.setCharacterSize(24);
-
-       float startY = 100.0f;
-       float offsetY = 40.0f;
-
-
-       for (size_t i = 0; i < scores.size(); ++i) {
-           const ScoreEntry &entry = scores[i];
-
-
-           scoreText.setString(std::to_string(i + 1) + " -   " + entry.score + "    " + entry.date + " " + entry.time);
-
-
-           scoreText.setPosition(100, startY + i * offsetY);
-
-
-           window.draw(scoreText);
-       }
-   }catch (std::exception) {
-       isScorePageOpened = false;
-   }
+    scoreManager->displayScore(window);
+    drawScorePageBackButton(window);
 }
-
-
-
 
 bool UIManager::getIsScorePageOpened() const{
     return isScorePageOpened;
 }
 void UIManager::setIsScorePageOpened(const bool state) {
     this->isScorePageOpened = state;
+}
+
+void UIManager::drawScorePageBackButton(sf::RenderWindow& window) {
+    window.draw(scorePageBackButton);
+    window.draw(scorePageBacktext);
 }

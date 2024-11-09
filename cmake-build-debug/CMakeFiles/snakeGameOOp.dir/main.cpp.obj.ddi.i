@@ -70716,33 +70716,42 @@ public:
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 1
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 1
-
-
-
-
-
-
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h" 1
-# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+struct ScoreEntry {
+    std::string score;
+    std::string date;
+    std::string time;
+};
 class StorageManager {
-private:
+
+
     const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt";
 public:
-    void saveScore();
-    std::vector<std::string> loadScore();
+    void saveScore(const std::string& scoreData);
+    std::string getFileName() const;
+    std::vector<ScoreEntry> loadScore() const ;
 };
-# 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
 
 
-class ScoreManager : StorageManager{
-private:
-    int currentScore;
-    int highestScore;
+class ScoreManager{
+    int currentScore = 0;
+    int highestScore = 0;
+    StorageManager* storage;
+
+
 public:
+    ScoreManager();
+    ~ScoreManager();
     void updateScore();
     void resetScore();
     int getHighestScore();
-    void saveScore();
+
+
+    void displayScore(sf::RenderWindow& window);
+
 };
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 2
 
@@ -70771,7 +70780,6 @@ private:
     UIManager* uiManager;
     Food food;
     Snake snake;
-    ScoreManager scoreManager;
     Board board;
 
     float timer;

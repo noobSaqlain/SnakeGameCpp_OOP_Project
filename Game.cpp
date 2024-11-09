@@ -52,7 +52,7 @@ void Game::build() {
         } else if (isPaused) {
 
             if(uiManager->getIsScorePageOpened())
-                uiManager->drawScorePage(window);
+                uiManager->drawScorePage(window); // Draw score page
             else
                 uiManager->drawMainMenu(window); // Draw the main menu
         } else if (isRunning) {

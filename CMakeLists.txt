@@ -13,7 +13,6 @@ add_executable(snakeGameOOp
         Food.h
         Game.cpp
         Game.h
-        StorageManager.h
         ScoreManager.cpp
         ScoreManager.h
         Board.cpp
@@ -21,6 +20,8 @@ add_executable(snakeGameOOp
         UIManager.cpp
         UIManager.h
         UIManager.cpp
+        StorageManager.cpp
+        StorageManager.h
 )
 
 set(SFML_STATIC_LIBRARIES TRUE)

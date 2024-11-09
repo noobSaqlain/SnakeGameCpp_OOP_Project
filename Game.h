@@ -20,7 +20,6 @@ private:
     UIManager* uiManager;
     Food food;
     Snake snake;
-    ScoreManager scoreManager;
     Board board;
 
     float timer;

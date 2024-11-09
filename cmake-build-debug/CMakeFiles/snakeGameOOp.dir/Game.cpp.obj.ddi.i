@@ -70711,33 +70711,42 @@ public:
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 1
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 1
-
-
-
-
-
-
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h" 1
-# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+struct ScoreEntry {
+    std::string score;
+    std::string date;
+    std::string time;
+};
 class StorageManager {
-private:
+
+
     const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt";
 public:
-    void saveScore();
-    std::vector<std::string> loadScore();
+    void saveScore(const std::string& scoreData);
+    std::string getFileName() const;
+    std::vector<ScoreEntry> loadScore() const ;
 };
-# 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
 
 
-class ScoreManager : StorageManager{
-private:
-    int currentScore;
-    int highestScore;
+class ScoreManager{
+    int currentScore = 0;
+    int highestScore = 0;
+    StorageManager* storage;
+
+
 public:
+    ScoreManager();
+    ~ScoreManager();
     void updateScore();
     void resetScore();
     int getHighestScore();
-    void saveScore();
+
+
+    void displayScore(sf::RenderWindow& window);
+
 };
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 2
 
@@ -70766,7 +70775,6 @@ private:
     UIManager* uiManager;
     Food food;
     Snake snake;
-    ScoreManager scoreManager;
     Board board;
 
     float timer;
@@ -72383,21 +72391,22 @@ namespace std
 }
 # 4 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h" 1
-# 15 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h"
+# 16 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h"
 
-# 15 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h"
+# 16 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h"
 class Game;
 
 class UIManager {
   private:
      bool isScorePageOpened = false;
     Game* game;
-
+    ScoreManager* scoreManager;
 
     sf::RectangleShape startButton;
     sf::RectangleShape scoreButton;
     sf::RectangleShape restartButton;
     sf::RectangleShape backToMenuButton;
+    sf::RectangleShape scorePageBackButton;
 
 
     sf::Text startText;
@@ -72405,10 +72414,12 @@ class UIManager {
     sf::Text gameOverText;
     sf::Text restartText;
     sf::Text backToMenuText;
+    sf::Text scorePageBacktext;
 
     sf::Font font;
   public:
     UIManager(Game* gameInstance);
+    ~UIManager();
      void handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food);
      void initButtons();
      void drawMainMenu(sf::RenderWindow &window);
@@ -72416,6 +72427,7 @@ class UIManager {
      void drawRestart(sf::RenderWindow &window);
      void drawRestartButton(sf::RenderWindow &window);
      void drawScorePage(sf::RenderWindow& window);
+    void drawScorePageBackButton(sf::RenderWindow& window);
     void setIsScorePageOpened(bool state);
     bool getIsScorePageOpened() const;
 };

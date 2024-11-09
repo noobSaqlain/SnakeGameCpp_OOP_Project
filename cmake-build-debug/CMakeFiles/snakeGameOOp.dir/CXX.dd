@@ -13,3 +13,5 @@ build CMakeFiles/snakeGameOOp.dir/Board.cpp.obj: dyndep
 
 build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj: dyndep
 
+build CMakeFiles/snakeGameOOp.dir/StorageManager.cpp.obj: dyndep
+

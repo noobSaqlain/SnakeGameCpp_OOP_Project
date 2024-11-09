@@ -7,13 +7,19 @@
 #include <string>
 #include <vector>
 
-
+struct ScoreEntry {
+    std::string score;
+    std::string date;
+    std::string time;
+};
 class StorageManager {
-private:
+
+
     const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt"; /// put your relative path accordingly
 public:
-    void saveScore();
-    std::vector<std::string> loadScore();
+    void saveScore(const std::string& scoreData);
+    std::string getFileName() const;
+    std::vector<ScoreEntry> loadScore() const ;
 };
 
 

@@ -4,18 +4,27 @@
 
 #ifndef SCOREMANAGER_H
 #define SCOREMANAGER_H
+#include <SFML/Graphics/RenderWindow.hpp>
+
 #include "StorageManager.h"
 
 
-class ScoreManager : StorageManager{
-private:
-    int currentScore;
-    int highestScore;
+class ScoreManager{
+    int currentScore = 0;
+    int highestScore = 0;
+    StorageManager* storage;
+
+
 public:
+    ScoreManager();
+    ~ScoreManager();
     void updateScore();
     void resetScore();
     int getHighestScore();
-    void saveScore();
+
+
+    void displayScore(sf::RenderWindow& window);
+
 };
 
 
