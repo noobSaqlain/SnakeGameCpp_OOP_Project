@@ -3,9 +3,9 @@ project(snakeGameOOp)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(snakeGameOOp main.cpp
+add_executable(snakeGameOOp
+        main.cpp
         MovableGameObject.h
-        SnakeSegment.cpp
         SnakeSegment.h
         Snake.cpp
         Snake.h
@@ -18,8 +18,9 @@ add_executable(snakeGameOOp main.cpp
         ScoreManager.h
         Board.cpp
         Board.h
-        cmake-build-debug/UIManager.cpp
-        cmake-build-debug/UIManager.h
+        UIManager.cpp
+        UIManager.h
+        UIManager.cpp
 )
 
 set(SFML_STATIC_LIBRARIES TRUE)

@@ -4,11 +4,18 @@
 
 #ifndef SCOREMANAGER_H
 #define SCOREMANAGER_H
+#include "StorageManager.h"
 
 
-
-class ScoreManager {
-
+class ScoreManager : StorageManager{
+private:
+    int currentScore;
+    int highestScore;
+public:
+    void updateScore();
+    void resetScore();
+    int getHighestScore();
+    void saveScore();
 };
 
 

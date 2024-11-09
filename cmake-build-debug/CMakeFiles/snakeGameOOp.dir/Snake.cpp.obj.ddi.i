@@ -70664,9 +70664,11 @@ private:
     Direction direction;
     int speed;
     int tileSize;
-
+    const int initialBodySize = 5;
+    void setInitialBodySize() ;
 public:
     Snake(int startX, int startY, int initialSpeed, int tileSize);
+
 
     void move();
     void grow();
@@ -70674,8 +70676,14 @@ public:
     bool checkSelfCollision() const;
     bool checkCollision() const;
     void resetSnake();
-    void draw(sf::RenderWindow& window) const;
+
+
+
     const std::vector<SnakeSegment>& getSegments() const { return segments; }
+    std::vector<SnakeSegment> getAllSegments() const { return segments; }
+    int getTileSize() const { return tileSize; }
+
+
 };
 # 2 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.cpp" 2
 
@@ -70695,8 +70703,64 @@ public:
     bool checkIfEaten(const Snake& snake) const;
     void drawFood( sf::RenderWindow& window);
     void setFoodPosition(int x, int y);
+    int getX() const {return x;}
+    int getY() const {return y;}
+    int getTileSize() const { return tilesize; }
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
+
+
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 1
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h"
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 1
+
+
+
+
+
+
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h" 1
+# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+class StorageManager {
+private:
+    const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt";
+public:
+    void saveScore();
+    std::vector<std::string> loadScore();
+};
+# 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
+
+
+class ScoreManager : StorageManager{
+private:
+    int currentScore;
+    int highestScore;
+public:
+    void updateScore();
+    void resetScore();
+    int getHighestScore();
+    void saveScore();
+};
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 2
+
+
+
+
+
+class Board {
+    private:
+        const int SCREEN_WIDTH;
+        const int SCREEN_HEIGHT;
+
+    public:
+        Board(int width, int height) : SCREEN_WIDTH(width), SCREEN_HEIGHT(height){};
+        void drawSnake(Snake& snake, sf::RenderWindow& window);
+        void drawFood(Food& food, sf::RenderWindow &window);
+        void drawUI(ScoreManager& scoreManager, sf::RenderWindow &window);
+        int getScreenWidth();
+        int getScreenHeight();
+};
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
 
 
 
@@ -70705,28 +70769,45 @@ public:
 
 class Game {
 private:
-    int gameState;
+
     Food food;
     Snake snake;
+    ScoreManager scoreManager;
+    Board board;
+
     int score = 0;
+    float timer;
 
 
     sf::RectangleShape startButton;
     sf::RectangleShape scoreButton;
     sf::RectangleShape restartButton;
+    sf::RectangleShape backToMenuButton;
 
 
     sf::Text startText;
     sf::Text scoreText;
     sf::Text gameOverText;
     sf::Text restartText;
+    sf::Text backToMenuText;
 
-
+    bool isRunning;
+    bool isPaused;
+    bool isGameOver;
 
     sf::Font font;
 
 public:
     Game();
+
+    void startGame();
+    void pauseGame();
+    void restartGame();
+    void updateGame();
+    void checkCollision();
+
+
+
     void build();
     void handleEvents(sf::RenderWindow &window);
     void drawMainMenu(sf::RenderWindow &window);
@@ -70734,17 +70815,33 @@ public:
     void drawRestart(sf::RenderWindow &window);
     void drawRestartButton(sf::RenderWindow &window);
     void initButtons();
+    void setStates(bool pause, bool run, bool over);
 };
 # 4 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.cpp" 2
 
 Snake::Snake(int startX, int startY, int initialSpeed, int tileSize)
     : MovableGameObject(startX, startY), direction(Direction::Right), speed(initialSpeed), tileSize(tileSize) {
     segments.push_back(SnakeSegment(startX, startY));
+    setInitialBodySize();
+}
+
+
+
+void Snake::setInitialBodySize() {
+    for (int i = 1; i <= initialBodySize; i++) {
+        int offsetX = 0, offsetY = 0;
+        switch (direction) {
+            case Direction::Right: offsetX = -i * tileSize; break;
+            case Direction::Left: offsetX = i * tileSize; break;
+            case Direction::Up: offsetY = i * tileSize; break;
+            case Direction::Down: offsetY = -i * tileSize; break;
+        }
+        segments.push_back(SnakeSegment(segments[0].x + offsetX, segments[0].y + offsetY));
+    }
 }
 
 void Snake::move() {
-
-    for (int i = segments.size() - 1; i > 0; --i) {
+    for (size_t i = segments.size() - 1; i > 0; --i) {
         segments[i] = segments[i - 1];
     }
 
@@ -70762,25 +70859,25 @@ void Snake::grow() {
     segments.push_back(segments.back());
 }
 
-void Snake::changeDirection(Direction newDirection) {
 
+void Snake::changeDirection(Direction newDirection) {
     if ((direction == Direction::Up && newDirection != Direction::Down) ||
         (direction == Direction::Down && newDirection != Direction::Up) ||
         (direction == Direction::Left && newDirection != Direction::Right) ||
         (direction == Direction::Right && newDirection != Direction::Left)) {
         direction = newDirection;
-    }
+        }
 }
 
 bool Snake::checkSelfCollision() const {
-
-    for (size_t i = 1; i < segments.size(); ++i) {
-        if (segments[i].x == segments[0].x && segments[i].y == segments[0].y) {
+    for (size_t i = 1; i < segments.size(); i++) {
+        if (segments[0].x == segments[i].x && segments[0].y == segments[i].y) {
             return true;
         }
     }
     return false;
 }
+
 
 bool Snake::checkCollision() const {
     if (segments[0].x < 0 || segments[0].x >= 800 ||
@@ -70791,17 +70888,15 @@ bool Snake::checkCollision() const {
 }
 
 
-void Snake::resetSnake() {
-    segments.clear();
-    segments.push_back(SnakeSegment(x, y));
-    direction = Direction::Right;
-}
 
-void Snake::draw(sf::RenderWindow& window) const {
-    for (const auto& segment : segments) {
-        sf::RectangleShape segmentShape(sf::Vector2f(tileSize, tileSize));
-        segmentShape.setFillColor(sf::Color::Green);
-        segmentShape.setPosition(static_cast<float>(segment.x), static_cast<float>(segment.y));
-        window.draw(segmentShape);
+    void Snake::resetSnake() {
+        segments.clear();
+
+
+        int startX = 800 / 2;
+        int startY = 600 / 2;
+        segments.push_back(SnakeSegment(startX, startY));
+
+        setInitialBodySize();
+        direction = Direction::Right;
     }
-}

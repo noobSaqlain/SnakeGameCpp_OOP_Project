@@ -1,8 +1,6 @@
 ninja_dyndep_version = 1.0
 build CMakeFiles/snakeGameOOp.dir/main.cpp.obj: dyndep
 
-build CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj: dyndep
-
 build CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj: dyndep
 
 build CMakeFiles/snakeGameOOp.dir/Food.cpp.obj: dyndep

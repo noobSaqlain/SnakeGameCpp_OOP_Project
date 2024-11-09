@@ -25,10 +25,7 @@ void Food::setFoodPosition(int x, int y) {
 
 
 void Food::drawFood(sf::RenderWindow &window) {
-    sf::CircleShape circle(tilesize / 2);
-    circle.setFillColor(sf::Color::Red);
-    circle.setPosition(static_cast<float>(x), static_cast<float>(y));
-    window.draw(circle);
+
 }
 
 

@@ -68,25 +68,6 @@ build CMakeFiles/snakeGameOOp.dir/main.cpp.obj: CXX_COMPILER__snakeGameOOp_scann
   OBJECT_FILE_DIR = CMakeFiles\snakeGameOOp.dir
   dyndep = CMakeFiles/snakeGameOOp.dir/CXX.dd
 
-build CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj.ddi: CXX_SCAN__snakeGameOOp_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/SnakeSegment.cpp || cmake_object_order_depends_target_snakeGameOOp
-  DEFINES = -DSFML_STATIC
-  DEP_FILE = CMakeFiles\snakeGameOOp.dir\SnakeSegment.cpp.obj.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\snakeGameOOp.dir\SnakeSegment.cpp.obj.ddi
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/SFML/include
-  OBJ_FILE = CMakeFiles\snakeGameOOp.dir\SnakeSegment.cpp.obj
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles\snakeGameOOp.dir\SnakeSegment.cpp.obj.ddi.i
-
-build CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj: CXX_COMPILER__snakeGameOOp_scanned_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/SnakeSegment.cpp | CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj.modmap || cmake_object_order_depends_target_snakeGameOOp CMakeFiles/snakeGameOOp.dir/CXX.dd
-  DEFINES = -DSFML_STATIC
-  DEP_FILE = CMakeFiles\snakeGameOOp.dir\SnakeSegment.cpp.obj.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles\snakeGameOOp.dir\SnakeSegment.cpp.obj.modmap
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/SFML/include
-  OBJECT_DIR = CMakeFiles\snakeGameOOp.dir
-  OBJECT_FILE_DIR = CMakeFiles\snakeGameOOp.dir
-  dyndep = CMakeFiles/snakeGameOOp.dir/CXX.dd
-
 build CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.ddi: CXX_SCAN__snakeGameOOp_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/Snake.cpp || cmake_object_order_depends_target_snakeGameOOp
   DEFINES = -DSFML_STATIC
   DEP_FILE = CMakeFiles\snakeGameOOp.dir\Snake.cpp.obj.ddi.d
@@ -182,7 +163,7 @@ build CMakeFiles/snakeGameOOp.dir/Board.cpp.obj: CXX_COMPILER__snakeGameOOp_scan
   OBJECT_FILE_DIR = CMakeFiles\snakeGameOOp.dir
   dyndep = CMakeFiles/snakeGameOOp.dir/CXX.dd
 
-build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.ddi: CXX_SCAN__snakeGameOOp_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/UIManager.cpp || cmake_object_order_depends_target_snakeGameOOp
+build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.ddi: CXX_SCAN__snakeGameOOp_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp || cmake_object_order_depends_target_snakeGameOOp
   DEFINES = -DSFML_STATIC
   DEP_FILE = CMakeFiles\snakeGameOOp.dir\UIManager.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\snakeGameOOp.dir\UIManager.cpp.obj.ddi
@@ -191,7 +172,7 @@ build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.ddi: CXX_SCAN__snakeGameOOp_
   OBJ_FILE = CMakeFiles\snakeGameOOp.dir\UIManager.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\snakeGameOOp.dir\UIManager.cpp.obj.ddi.i
 
-build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj: CXX_COMPILER__snakeGameOOp_scanned_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/UIManager.cpp | CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.modmap || cmake_object_order_depends_target_snakeGameOOp CMakeFiles/snakeGameOOp.dir/CXX.dd
+build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj: CXX_COMPILER__snakeGameOOp_scanned_Debug C$:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp | CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.modmap || cmake_object_order_depends_target_snakeGameOOp CMakeFiles/snakeGameOOp.dir/CXX.dd
   DEFINES = -DSFML_STATIC
   DEP_FILE = CMakeFiles\snakeGameOOp.dir\UIManager.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\snakeGameOOp.dir\UIManager.cpp.obj.modmap
@@ -201,7 +182,7 @@ build CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj: CXX_COMPILER__snakeGameOOp_
   OBJECT_FILE_DIR = CMakeFiles\snakeGameOOp.dir
   dyndep = CMakeFiles/snakeGameOOp.dir/CXX.dd
 
-build CMakeFiles/snakeGameOOp.dir/CXX.dd | C$:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/CMakeFiles/snakeGameOOp.dir/CXXModules.json CMakeFiles/snakeGameOOp.dir/main.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Food.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Game.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/ScoreManager.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Board.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.modmap: CXX_DYNDEP__snakeGameOOp_Debug CMakeFiles/snakeGameOOp.dir/main.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Food.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Game.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/ScoreManager.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Board.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.ddi | C$:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/CMakeFiles/snakeGameOOp.dir/CXXDependInfo.json
+build CMakeFiles/snakeGameOOp.dir/CXX.dd | C$:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/CMakeFiles/snakeGameOOp.dir/CXXModules.json CMakeFiles/snakeGameOOp.dir/main.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Food.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Game.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/ScoreManager.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/Board.cpp.obj.modmap CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.modmap: CXX_DYNDEP__snakeGameOOp_Debug CMakeFiles/snakeGameOOp.dir/main.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Food.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Game.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/ScoreManager.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/Board.cpp.obj.ddi CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj.ddi | C$:/Users/LENOVO/Desktop/snakeGameOOp/cmake-build-debug/CMakeFiles/snakeGameOOp.dir/CXXDependInfo.json
 
 
 # =============================================================================
@@ -211,7 +192,7 @@ build CMakeFiles/snakeGameOOp.dir/CXX.dd | C$:/Users/LENOVO/Desktop/snakeGameOOp
 #############################################
 # Link the executable snakeGameOOp.exe
 
-build snakeGameOOp.exe: CXX_EXECUTABLE_LINKER__snakeGameOOp_Debug CMakeFiles/snakeGameOOp.dir/main.cpp.obj CMakeFiles/snakeGameOOp.dir/SnakeSegment.cpp.obj CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj CMakeFiles/snakeGameOOp.dir/Food.cpp.obj CMakeFiles/snakeGameOOp.dir/Game.cpp.obj CMakeFiles/snakeGameOOp.dir/ScoreManager.cpp.obj CMakeFiles/snakeGameOOp.dir/Board.cpp.obj CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj | C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libfreetype.a
+build snakeGameOOp.exe: CXX_EXECUTABLE_LINKER__snakeGameOOp_Debug CMakeFiles/snakeGameOOp.dir/main.cpp.obj CMakeFiles/snakeGameOOp.dir/Snake.cpp.obj CMakeFiles/snakeGameOOp.dir/Food.cpp.obj CMakeFiles/snakeGameOOp.dir/Game.cpp.obj CMakeFiles/snakeGameOOp.dir/ScoreManager.cpp.obj CMakeFiles/snakeGameOOp.dir/Board.cpp.obj CMakeFiles/snakeGameOOp.dir/UIManager.cpp.obj | C$:/SFML/lib/libsfml-graphics-s-d.a C$:/SFML/lib/libsfml-window-s-d.a C$:/SFML/lib/libsfml-system-s-d.a C$:/SFML/lib/libfreetype.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML/lib/libsfml-graphics-s-d.a  C:/SFML/lib/libsfml-window-s-d.a  C:/SFML/lib/libsfml-system-s-d.a  -lOpenGL32  -lwinmm  -lgdi32  C:/SFML/lib/libfreetype.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\snakeGameOOp.dir

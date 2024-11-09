@@ -70668,9 +70668,11 @@ private:
     Direction direction;
     int speed;
     int tileSize;
-
+    const int initialBodySize = 5;
+    void setInitialBodySize() ;
 public:
     Snake(int startX, int startY, int initialSpeed, int tileSize);
+
 
     void move();
     void grow();
@@ -70678,8 +70680,14 @@ public:
     bool checkSelfCollision() const;
     bool checkCollision() const;
     void resetSnake();
-    void draw(sf::RenderWindow& window) const;
+
+
+
     const std::vector<SnakeSegment>& getSegments() const { return segments; }
+    std::vector<SnakeSegment> getAllSegments() const { return segments; }
+    int getTileSize() const { return tileSize; }
+
+
 };
 # 5 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h" 1
@@ -70693,8 +70701,64 @@ public:
     bool checkIfEaten(const Snake& snake) const;
     void drawFood( sf::RenderWindow& window);
     void setFoodPosition(int x, int y);
+    int getX() const {return x;}
+    int getY() const {return y;}
+    int getTileSize() const { return tilesize; }
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
+
+
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 1
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h"
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 1
+
+
+
+
+
+
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h" 1
+# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+class StorageManager {
+private:
+    const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt";
+public:
+    void saveScore();
+    std::vector<std::string> loadScore();
+};
+# 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
+
+
+class ScoreManager : StorageManager{
+private:
+    int currentScore;
+    int highestScore;
+public:
+    void updateScore();
+    void resetScore();
+    int getHighestScore();
+    void saveScore();
+};
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 2
+
+
+
+
+
+class Board {
+    private:
+        const int SCREEN_WIDTH;
+        const int SCREEN_HEIGHT;
+
+    public:
+        Board(int width, int height) : SCREEN_WIDTH(width), SCREEN_HEIGHT(height){};
+        void drawSnake(Snake& snake, sf::RenderWindow& window);
+        void drawFood(Food& food, sf::RenderWindow &window);
+        void drawUI(ScoreManager& scoreManager, sf::RenderWindow &window);
+        int getScreenWidth();
+        int getScreenHeight();
+};
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
 
 
 
@@ -70703,28 +70767,45 @@ public:
 
 class Game {
 private:
-    int gameState;
+
     Food food;
     Snake snake;
+    ScoreManager scoreManager;
+    Board board;
+
     int score = 0;
+    float timer;
 
 
     sf::RectangleShape startButton;
     sf::RectangleShape scoreButton;
     sf::RectangleShape restartButton;
+    sf::RectangleShape backToMenuButton;
 
 
     sf::Text startText;
     sf::Text scoreText;
     sf::Text gameOverText;
     sf::Text restartText;
+    sf::Text backToMenuText;
 
-
+    bool isRunning;
+    bool isPaused;
+    bool isGameOver;
 
     sf::Font font;
 
 public:
     Game();
+
+    void startGame();
+    void pauseGame();
+    void restartGame();
+    void updateGame();
+    void checkCollision();
+
+
+
     void build();
     void handleEvents(sf::RenderWindow &window);
     void drawMainMenu(sf::RenderWindow &window);
@@ -70732,6 +70813,7 @@ public:
     void drawRestart(sf::RenderWindow &window);
     void drawRestartButton(sf::RenderWindow &window);
     void initButtons();
+    void setStates(bool pause, bool run, bool over);
 };
 # 2 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
 
@@ -72328,14 +72410,21 @@ namespace std
 
 
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp"
-Game::Game() : food(0, 0, 25), snake(800 / 2, 600 / 2, 1, 25), gameState(0) {
-   initButtons();
+Game::Game() : food(0, 0, 25),
+            snake(800 / 2, 600 / 2, 1, 25),
+            board(800,600) {
+    initButtons();
+    setStates(true,false,false);
+
 }
 void Game::initButtons() {
-
-    if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts//Neucha-Regular.ttf")) {
-        std::cerr << "Error loading font!" << std::endl;
-        return;
+    try {
+        if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
+            std::cerr << "Error: Could not load font from the specified path." << std::endl;
+            return;
+        }
+    } catch (const std::exception &e) {
+        std::cerr << "Exception caught during font loading: " << e.what() << std::endl;
     }
 
 
@@ -72382,14 +72471,30 @@ void Game::initButtons() {
         restartButton.getPosition().x + (restartButton.getSize().x - restartTextRect.width) / 2,
         restartButton.getPosition().y + (restartButton.getSize().y - restartTextRect.height) / 2 - 5
     );
+
+
+
+    backToMenuButton.setSize(sf::Vector2f(200, 50));
+    backToMenuButton.setFillColor(sf::Color::Blue);
+    backToMenuButton.setPosition(800 / 2 - 100, 600 / 2 + 130);
+
+    backToMenuText.setFont(font);
+    backToMenuText.setString("Back to Menu");
+    backToMenuText.setCharacterSize(24);
+    backToMenuText.setFillColor(sf::Color::White);
+    sf::FloatRect backToMenuTextRect = backToMenuText.getLocalBounds();
+    backToMenuText.setPosition(
+        backToMenuButton.getPosition().x + (backToMenuButton.getSize().x - backToMenuTextRect.width) / 2,
+        backToMenuButton.getPosition().y + (backToMenuButton.getSize().y - backToMenuTextRect.height) / 2 - 5
+    );
 }
 
 
 void Game::build() {
-    RenderWindow window(VideoMode(800, 600), "Snake Game");
+    RenderWindow window(VideoMode(board.getScreenWidth(), board.getScreenHeight()), "Snake Game");
 
     Clock clock;
-    float timer = 0.0f;
+    timer = 0.0f;
     float delay = 0.1f;
 
     while (window.isOpen()) {
@@ -72398,28 +72503,29 @@ void Game::build() {
 
         handleEvents(window);
 
-        if (gameState == 1 && timer > delay) {
+        if (isRunning && timer > delay) {
             snake.move();
             timer = 0;
+
+            if (snake.checkCollision() || snake.checkSelfCollision()) {
+                setStates(false, false, true);
+            } else if (food.checkIfEaten(snake)) {
+                snake.grow();
+                score++;
+                food.generateNewPosition(800, 600);
+            }
         }
 
         window.clear();
-        if(snake.checkCollision() || snake.checkCollision()) {
+        if (isGameOver) {
             drawRestart(window);
-        }
-        if(food.checkIfEaten(snake)) {
-            snake.grow();
-            score++;
-            food.generateNewPosition(800, 600);
-        }
-
-        if (gameState == 0) {
+        } else if (isPaused) {
             drawMainMenu(window);
-        } else if (gameState == 1) {
+        } else if (isRunning) {
             drawGame(window);
         }
-
         window.display();
+
     }
 }
 
@@ -72430,16 +72536,24 @@ void Game::handleEvents(sf::RenderWindow &window) {
             window.close();
         } else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
             Vector2i mousePos = Mouse::getPosition(window);
-            if (startButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                gameState = 1;
+            if (isPaused && startButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                setStates(false,true,false);
             }
-            else if (restartButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                gameState = 1;
+            else if (isGameOver && restartButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                setStates(false, true, false);
                 snake.resetSnake();
                 score = 0;
-                food.generateNewPosition(800,600);
+
+                food.generateNewPosition(800, 600);
             }
-        } else if (event.type == Event::KeyPressed) {
+
+            else if (isGameOver && backToMenuButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                setStates(true, false, false);
+                snake.resetSnake();
+                score = 0;
+
+            }
+        }else if (event.type == Event::KeyPressed) {
             switch (event.key.code) {
                 case Keyboard::Up: snake.changeDirection(Direction::Up); break;
                 case Keyboard::Down: snake.changeDirection(Direction::Down); break;
@@ -72457,34 +72571,35 @@ void Game::drawMainMenu(sf::RenderWindow &window) {
 }
 
 void Game::drawGame(sf::RenderWindow &window) {
-    snake.draw(window);
-    food.drawFood(window);
+    board.drawFood(food, window);
+    board.drawSnake(snake, window);
 }
 void Game::drawRestart(sf::RenderWindow &window) {
 
-    if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
-
-        return;
-    }
-    food.setFoodPosition(-99999,-99999);
-    drawRestartButton(window);
 
     gameOverText.setFont(font);
     gameOverText.setFillColor(sf::Color::Red);
     gameOverText.setString("Game Over");
     gameOverText.setCharacterSize(50);
-
-
     sf::FloatRect textRect = gameOverText.getLocalBounds();
-    gameOverText.setPosition(
-        (800 - textRect.width) / 2,
-        (600 - textRect.height) / 2
-    );
+    gameOverText.setPosition((800 - textRect.width) / 2, (600 - textRect.height) / 2);
 
     window.draw(gameOverText);
+
+
+    drawRestartButton(window);
+    window.draw(backToMenuButton);
+    window.draw(backToMenuText);
 }
+
 
 void Game::drawRestartButton(sf::RenderWindow &window) {
     window.draw(restartButton);
     window.draw(restartText);
+}
+
+void Game::setStates(bool pause, bool run, bool over) {
+    this->isPaused = pause;
+    this->isRunning = run;
+    this->isGameOver = over;
 }

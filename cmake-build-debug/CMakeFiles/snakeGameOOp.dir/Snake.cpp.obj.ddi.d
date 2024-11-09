@@ -253,4 +253,7 @@ CMakeFiles\snakeGameOOp.dir\Snake.cpp.obj.ddi: \
  C:/SFML/include/SFML/Graphics/Text.hpp \
  C:/SFML/include/SFML/Graphics/VertexBuffer.hpp \
  C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h \
- C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h
+ C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h

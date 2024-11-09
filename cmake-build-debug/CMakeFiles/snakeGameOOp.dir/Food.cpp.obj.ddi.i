@@ -70702,9 +70702,11 @@ private:
     Direction direction;
     int speed;
     int tileSize;
-
+    const int initialBodySize = 5;
+    void setInitialBodySize() ;
 public:
     Snake(int startX, int startY, int initialSpeed, int tileSize);
+
 
     void move();
     void grow();
@@ -70712,8 +70714,14 @@ public:
     bool checkSelfCollision() const;
     bool checkCollision() const;
     void resetSnake();
-    void draw(sf::RenderWindow& window) const;
+
+
+
     const std::vector<SnakeSegment>& getSegments() const { return segments; }
+    std::vector<SnakeSegment> getAllSegments() const { return segments; }
+    int getTileSize() const { return tileSize; }
+
+
 };
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h" 2
 
@@ -70726,6 +70734,9 @@ public:
     bool checkIfEaten(const Snake& snake) const;
     void drawFood( sf::RenderWindow& window);
     void setFoodPosition(int x, int y);
+    int getX() const {return x;}
+    int getY() const {return y;}
+    int getTileSize() const { return tilesize; }
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.cpp" 2
 
@@ -70750,8 +70761,5 @@ void Food::setFoodPosition(int x, int y) {
 
 
 void Food::drawFood(sf::RenderWindow &window) {
-    sf::CircleShape circle(tilesize / 2);
-    circle.setFillColor(sf::Color::Red);
-    circle.setPosition(static_cast<float>(x), static_cast<float>(y));
-    window.draw(circle);
+
 }

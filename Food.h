@@ -17,6 +17,9 @@ public:
     bool checkIfEaten(const Snake& snake) const;
     void drawFood( sf::RenderWindow& window);
     void setFoodPosition(int x, int y);
+    int getX() const {return x;}
+    int getY() const {return y;}
+    int getTileSize() const { return tilesize; }
 };
 
 #endif

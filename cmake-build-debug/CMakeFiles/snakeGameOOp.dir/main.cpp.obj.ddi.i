@@ -70673,9 +70673,11 @@ private:
     Direction direction;
     int speed;
     int tileSize;
-
+    const int initialBodySize = 5;
+    void setInitialBodySize() ;
 public:
     Snake(int startX, int startY, int initialSpeed, int tileSize);
+
 
     void move();
     void grow();
@@ -70683,8 +70685,14 @@ public:
     bool checkSelfCollision() const;
     bool checkCollision() const;
     void resetSnake();
-    void draw(sf::RenderWindow& window) const;
+
+
+
     const std::vector<SnakeSegment>& getSegments() const { return segments; }
+    std::vector<SnakeSegment> getAllSegments() const { return segments; }
+    int getTileSize() const { return tileSize; }
+
+
 };
 # 5 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Food.h" 1
@@ -70698,8 +70706,64 @@ public:
     bool checkIfEaten(const Snake& snake) const;
     void drawFood( sf::RenderWindow& window);
     void setFoodPosition(int x, int y);
+    int getX() const {return x;}
+    int getY() const {return y;}
+    int getTileSize() const { return tilesize; }
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
+
+
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 1
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h"
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 1
+
+
+
+
+
+
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h" 1
+# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h"
+class StorageManager {
+private:
+    const std::string fileName = "C:/Users/LENOVO/Desktop/snakeGameOOp/scores.txt";
+public:
+    void saveScore();
+    std::vector<std::string> loadScore();
+};
+# 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/ScoreManager.h" 2
+
+
+class ScoreManager : StorageManager{
+private:
+    int currentScore;
+    int highestScore;
+public:
+    void updateScore();
+    void resetScore();
+    int getHighestScore();
+    void saveScore();
+};
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Board.h" 2
+
+
+
+
+
+class Board {
+    private:
+        const int SCREEN_WIDTH;
+        const int SCREEN_HEIGHT;
+
+    public:
+        Board(int width, int height) : SCREEN_WIDTH(width), SCREEN_HEIGHT(height){};
+        void drawSnake(Snake& snake, sf::RenderWindow& window);
+        void drawFood(Food& food, sf::RenderWindow &window);
+        void drawUI(ScoreManager& scoreManager, sf::RenderWindow &window);
+        int getScreenWidth();
+        int getScreenHeight();
+};
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
 
 
 
@@ -70708,28 +70772,45 @@ public:
 
 class Game {
 private:
-    int gameState;
+
     Food food;
     Snake snake;
+    ScoreManager scoreManager;
+    Board board;
+
     int score = 0;
+    float timer;
 
 
     sf::RectangleShape startButton;
     sf::RectangleShape scoreButton;
     sf::RectangleShape restartButton;
+    sf::RectangleShape backToMenuButton;
 
 
     sf::Text startText;
     sf::Text scoreText;
     sf::Text gameOverText;
     sf::Text restartText;
+    sf::Text backToMenuText;
 
-
+    bool isRunning;
+    bool isPaused;
+    bool isGameOver;
 
     sf::Font font;
 
 public:
     Game();
+
+    void startGame();
+    void pauseGame();
+    void restartGame();
+    void updateGame();
+    void checkCollision();
+
+
+
     void build();
     void handleEvents(sf::RenderWindow &window);
     void drawMainMenu(sf::RenderWindow &window);
@@ -70737,6 +70818,7 @@ public:
     void drawRestart(sf::RenderWindow &window);
     void drawRestartButton(sf::RenderWindow &window);
     void initButtons();
+    void setStates(bool pause, bool run, bool over);
 };
 # 7 "C:/Users/LENOVO/Desktop/snakeGameOOp/main.cpp" 2
 
