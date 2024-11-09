@@ -8,42 +8,31 @@
 #include "Board.h"
 
 
+
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define TILE_SIZE 25
 
+class UIManager;
 class Game {
 private:
-
+    UIManager* uiManager;
     Food food;
     Snake snake;
     ScoreManager scoreManager;
     Board board;
 
-    int score = 0;
     float timer;
-
-    //  rect shape for buttons
-    sf::RectangleShape startButton; // main page start button
-    sf::RectangleShape scoreButton; // score page history button
-    sf::RectangleShape restartButton; // restart button on gameover screen
-    sf::RectangleShape backToMenuButton; // back to menu, button in gameover state
-
-    // Texts
-    sf::Text startText; /// main start text
-    sf::Text scoreText; // score text of snake
-    sf::Text gameOverText; // final game over text when collision
-    sf::Text restartText; // restart button text
-    sf::Text backToMenuText; // back to menu text when gameover
-
     bool isRunning;
     bool isPaused;
     bool isGameOver;
-    // Font for text
-    sf::Font font;
+
 
 public:
+
     Game();
+    ~Game();
 ///////////////////////////
     void startGame();
     void pauseGame();
@@ -55,11 +44,9 @@ public:
 
     void build();
     void handleEvents(sf::RenderWindow &window);
-    void drawMainMenu(sf::RenderWindow &window);
-    void drawGame(sf::RenderWindow &window);
-    void drawRestart(sf::RenderWindow &window);
-    void drawRestartButton(sf::RenderWindow &window);
-    void initButtons();
+    bool getIsPausedStatus() const;
+    bool getIsRunningStatus() const;
+    bool getIsGameOverStatus() const;
     void setStates(bool pause, bool run, bool over);
 };
 

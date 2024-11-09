@@ -70759,44 +70759,26 @@ class Board {
         int getScreenHeight();
 };
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
-
-
-
-
-
-
+# 17 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h"
+class UIManager;
 class Game {
 private:
-
+    UIManager* uiManager;
     Food food;
     Snake snake;
     ScoreManager scoreManager;
     Board board;
 
-    int score = 0;
     float timer;
-
-
-    sf::RectangleShape startButton;
-    sf::RectangleShape scoreButton;
-    sf::RectangleShape restartButton;
-    sf::RectangleShape backToMenuButton;
-
-
-    sf::Text startText;
-    sf::Text scoreText;
-    sf::Text gameOverText;
-    sf::Text restartText;
-    sf::Text backToMenuText;
-
     bool isRunning;
     bool isPaused;
     bool isGameOver;
 
-    sf::Font font;
 
 public:
+
     Game();
+    ~Game();
 
     void startGame();
     void pauseGame();
@@ -70808,19 +70790,12 @@ public:
 
     void build();
     void handleEvents(sf::RenderWindow &window);
-    void drawMainMenu(sf::RenderWindow &window);
-    void drawGame(sf::RenderWindow &window);
-    void drawRestart(sf::RenderWindow &window);
-    void drawRestartButton(sf::RenderWindow &window);
-    void initButtons();
+    bool getIsPausedStatus() const;
+    bool getIsRunningStatus() const;
+    bool getIsGameOverStatus() const;
     void setStates(bool pause, bool run, bool over);
 };
 # 2 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
-
-
-using namespace sf;
-
-
 
 # 1 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 1 3
 # 36 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
@@ -72406,88 +72381,60 @@ namespace std
 # 85 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
 
 }
-# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
+# 4 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
+# 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h" 1
+# 15 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h"
+
+# 15 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h"
+class Game;
+
+class UIManager {
+  private:
+     bool isRestartButtonClicked;
+     bool isPauseButtonClicked;
+    Game* game;
 
 
-# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp"
+    sf::RectangleShape startButton;
+    sf::RectangleShape scoreButton;
+    sf::RectangleShape restartButton;
+    sf::RectangleShape backToMenuButton;
+
+
+    sf::Text startText;
+    sf::Text scoreText;
+    sf::Text gameOverText;
+    sf::Text restartText;
+    sf::Text backToMenuText;
+
+    sf::Font font;
+  public:
+    UIManager(Game* gameInstance);
+     void handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food);
+     void initButtons();
+     void drawMainMenu(sf::RenderWindow &window);
+     void drawGame(sf::RenderWindow &window,Snake& snake, Food& food, Board& board);
+     void drawRestart(sf::RenderWindow &window);
+     void drawRestartButton(sf::RenderWindow &window);
+     void setGame(Game* game);
+};
+# 5 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
+using namespace sf;
+
+
 Game::Game() : food(0, 0, 25),
             snake(800 / 2, 600 / 2, 1, 25),
-            board(800,600) {
-    initButtons();
+            board(800,600)
+            {
+    uiManager = new UIManager(this);
     setStates(true,false,false);
-
 }
-void Game::initButtons() {
-    try {
-        if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
-            std::cerr << "Error: Could not load font from the specified path." << std::endl;
-            return;
-        }
-    } catch (const std::exception &e) {
-        std::cerr << "Exception caught during font loading: " << e.what() << std::endl;
-    }
-
-
-    startButton.setSize(sf::Vector2f(200, 50));
-    startButton.setFillColor(sf::Color::Green);
-    startButton.setPosition(800 / 2 - 100, 600 / 2 - 60);
-
-    startText.setFont(font);
-    startText.setString("Game Start");
-    startText.setCharacterSize(24);
-    startText.setFillColor(sf::Color::Black);
-    sf::FloatRect startTextRect = startText.getLocalBounds();
-    startText.setPosition(
-        startButton.getPosition().x + (startButton.getSize().x - startTextRect.width) / 2,
-        startButton.getPosition().y + (startButton.getSize().y - startTextRect.height) / 2 - 5
-    );
-
-
-    scoreButton.setSize(sf::Vector2f(200, 50));
-    scoreButton.setFillColor(sf::Color::Green);
-    scoreButton.setPosition(800 / 2 - 100, 600 / 2 + 10);
-
-    scoreText.setFont(font);
-    scoreText.setString("Score History");
-    scoreText.setCharacterSize(24);
-    scoreText.setFillColor(sf::Color::Black);
-    sf::FloatRect scoreTextRect = scoreText.getLocalBounds();
-    scoreText.setPosition(
-        scoreButton.getPosition().x + (scoreButton.getSize().x - scoreTextRect.width) / 2,
-        scoreButton.getPosition().y + (scoreButton.getSize().y - scoreTextRect.height) / 2 - 5
-    );
-
-
-    restartButton.setSize(sf::Vector2f(200, 50));
-    restartButton.setFillColor(sf::Color::Red);
-    restartButton.setPosition(800 / 2 - 100, 600 / 2 + 70);
-
-    restartText.setFont(font);
-    restartText.setString("Restart");
-    restartText.setCharacterSize(24);
-    restartText.setFillColor(sf::Color::White);
-    sf::FloatRect restartTextRect = restartText.getLocalBounds();
-    restartText.setPosition(
-        restartButton.getPosition().x + (restartButton.getSize().x - restartTextRect.width) / 2,
-        restartButton.getPosition().y + (restartButton.getSize().y - restartTextRect.height) / 2 - 5
-    );
-
-
-
-    backToMenuButton.setSize(sf::Vector2f(200, 50));
-    backToMenuButton.setFillColor(sf::Color::Blue);
-    backToMenuButton.setPosition(800 / 2 - 100, 600 / 2 + 130);
-
-    backToMenuText.setFont(font);
-    backToMenuText.setString("Back to Menu");
-    backToMenuText.setCharacterSize(24);
-    backToMenuText.setFillColor(sf::Color::White);
-    sf::FloatRect backToMenuTextRect = backToMenuText.getLocalBounds();
-    backToMenuText.setPosition(
-        backToMenuButton.getPosition().x + (backToMenuButton.getSize().x - backToMenuTextRect.width) / 2,
-        backToMenuButton.getPosition().y + (backToMenuButton.getSize().y - backToMenuTextRect.height) / 2 - 5
-    );
+Game::~Game() {
+    if (uiManager) delete uiManager;
 }
+
+
+
 
 
 void Game::build() {
@@ -72511,18 +72458,18 @@ void Game::build() {
                 setStates(false, false, true);
             } else if (food.checkIfEaten(snake)) {
                 snake.grow();
-                score++;
+
                 food.generateNewPosition(800, 600);
             }
         }
 
         window.clear();
         if (isGameOver) {
-            drawRestart(window);
+            uiManager->drawRestart(window);
         } else if (isPaused) {
-            drawMainMenu(window);
+            uiManager->drawMainMenu(window);
         } else if (isRunning) {
-            drawGame(window);
+            uiManager->drawGame(window,snake, food, board);
         }
         window.display();
 
@@ -72536,23 +72483,7 @@ void Game::handleEvents(sf::RenderWindow &window) {
             window.close();
         } else if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
             Vector2i mousePos = Mouse::getPosition(window);
-            if (isPaused && startButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                setStates(false,true,false);
-            }
-            else if (isGameOver && restartButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                setStates(false, true, false);
-                snake.resetSnake();
-                score = 0;
-
-                food.generateNewPosition(800, 600);
-            }
-
-            else if (isGameOver && backToMenuButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                setStates(true, false, false);
-                snake.resetSnake();
-                score = 0;
-
-            }
+            uiManager->handleInputs(mousePos,snake,food);
         }else if (event.type == Event::KeyPressed) {
             switch (event.key.code) {
                 case Keyboard::Up: snake.changeDirection(Direction::Up); break;
@@ -72565,41 +72496,18 @@ void Game::handleEvents(sf::RenderWindow &window) {
     }
 }
 
-void Game::drawMainMenu(sf::RenderWindow &window) {
-    window.draw(startButton);
-    window.draw(scoreButton);
-}
-
-void Game::drawGame(sf::RenderWindow &window) {
-    board.drawFood(food, window);
-    board.drawSnake(snake, window);
-}
-void Game::drawRestart(sf::RenderWindow &window) {
-
-
-    gameOverText.setFont(font);
-    gameOverText.setFillColor(sf::Color::Red);
-    gameOverText.setString("Game Over");
-    gameOverText.setCharacterSize(50);
-    sf::FloatRect textRect = gameOverText.getLocalBounds();
-    gameOverText.setPosition((800 - textRect.width) / 2, (600 - textRect.height) / 2);
-
-    window.draw(gameOverText);
-
-
-    drawRestartButton(window);
-    window.draw(backToMenuButton);
-    window.draw(backToMenuText);
-}
-
-
-void Game::drawRestartButton(sf::RenderWindow &window) {
-    window.draw(restartButton);
-    window.draw(restartText);
-}
-
 void Game::setStates(bool pause, bool run, bool over) {
     this->isPaused = pause;
     this->isRunning = run;
     this->isGameOver = over;
+}
+
+bool Game::getIsPausedStatus() const {
+    return isPaused;
+}
+bool Game::getIsRunningStatus() const {
+    return isRunning;
+}
+bool Game::getIsGameOverStatus() const {
+    return isGameOver;
 }

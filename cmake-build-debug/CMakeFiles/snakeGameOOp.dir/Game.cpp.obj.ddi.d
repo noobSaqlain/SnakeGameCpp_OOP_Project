@@ -259,4 +259,5 @@ CMakeFiles\snakeGameOOp.dir\Game.cpp.obj.ddi: \
  C:/Users/LENOVO/Desktop/snakeGameOOp/StorageManager.h \
  C:/msys64/mingw64/include/c++/14.2.0/iostream \
  C:/msys64/mingw64/include/c++/14.2.0/istream \
- C:/msys64/mingw64/include/c++/14.2.0/bits/istream.tcc
+ C:/msys64/mingw64/include/c++/14.2.0/bits/istream.tcc \
+ C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.h

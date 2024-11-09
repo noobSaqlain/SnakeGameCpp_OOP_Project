@@ -70764,44 +70764,26 @@ class Board {
         int getScreenHeight();
 };
 # 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 2
-
-
-
-
-
-
+# 17 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h"
+class UIManager;
 class Game {
 private:
-
+    UIManager* uiManager;
     Food food;
     Snake snake;
     ScoreManager scoreManager;
     Board board;
 
-    int score = 0;
     float timer;
-
-
-    sf::RectangleShape startButton;
-    sf::RectangleShape scoreButton;
-    sf::RectangleShape restartButton;
-    sf::RectangleShape backToMenuButton;
-
-
-    sf::Text startText;
-    sf::Text scoreText;
-    sf::Text gameOverText;
-    sf::Text restartText;
-    sf::Text backToMenuText;
-
     bool isRunning;
     bool isPaused;
     bool isGameOver;
 
-    sf::Font font;
 
 public:
+
     Game();
+    ~Game();
 
     void startGame();
     void pauseGame();
@@ -70813,11 +70795,9 @@ public:
 
     void build();
     void handleEvents(sf::RenderWindow &window);
-    void drawMainMenu(sf::RenderWindow &window);
-    void drawGame(sf::RenderWindow &window);
-    void drawRestart(sf::RenderWindow &window);
-    void drawRestartButton(sf::RenderWindow &window);
-    void initButtons();
+    bool getIsPausedStatus() const;
+    bool getIsRunningStatus() const;
+    bool getIsGameOverStatus() const;
     void setStates(bool pause, bool run, bool over);
 };
 # 7 "C:/Users/LENOVO/Desktop/snakeGameOOp/main.cpp" 2
