@@ -67031,6 +67031,7 @@ public:
     void resetScore();
     int getHighestScore()const ;
     int getCurrScore()const;
+    void saveDataToFile(std::string data);
 
 
     void displayScore(sf::RenderWindow& window);
@@ -70785,6 +70786,7 @@ class Game;
 class UIManager {
   private:
      bool isScorePageOpened = false;
+    bool scoreSaved = false;
     Game* game;
     ScoreManager* scoreManager;
 
@@ -70804,6 +70806,7 @@ class UIManager {
     sf::Text score;
 
     sf::Font font;
+
   public:
     UIManager(Game* gameInstance);
     ~UIManager();
@@ -70819,6 +70822,9 @@ class UIManager {
      bool getIsScorePageOpened() const;
      void updateScore();
     void drawScore(sf::RenderWindow& window);
+    void dataFormat(int score);
+    void resetScoreFont(sf::Text& score);
+
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
 
@@ -74409,35 +74415,28 @@ namespace std
 }
 # 1361 "C:/msys64/mingw64/include/c++/14.2.0/fstream" 2 3
 # 8 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
-# 1 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 1 3
-# 36 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
+# 1 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 1 3
+# 36 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
        
-# 37 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
+# 37 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+# 45 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+# 1 "C:/msys64/mingw64/include/c++/14.2.0/bits/version.h" 1 3
+# 47 "C:/msys64/mingw64/include/c++/14.2.0/bits/version.h" 3
+       
+# 48 "C:/msys64/mingw64/include/c++/14.2.0/bits/version.h" 3
+# 46 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 2 3
 
 
 
 
+# 1 "C:/msys64/mingw64/include/c++/14.2.0/bits/quoted_string.h" 1 3
+# 33 "C:/msys64/mingw64/include/c++/14.2.0/bits/quoted_string.h" 3
+       
+# 34 "C:/msys64/mingw64/include/c++/14.2.0/bits/quoted_string.h" 3
 
 
 
-namespace std
-{
 
-# 62 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
-  extern istream cin;
-  extern ostream cout;
-  extern ostream cerr;
-  extern ostream clog;
-
-
-  extern wistream wcin;
-  extern wostream wcout;
-  extern wostream wcerr;
-  extern wostream wclog;
-# 85 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
-
-}
-# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
 # 1 "C:/msys64/mingw64/include/c++/14.2.0/sstream" 1 3
 # 36 "C:/msys64/mingw64/include/c++/14.2.0/sstream" 3
        
@@ -75618,7 +75617,584 @@ namespace std
 
 }
 # 1239 "C:/msys64/mingw64/include/c++/14.2.0/sstream" 2 3
+# 39 "C:/msys64/mingw64/include/c++/14.2.0/bits/quoted_string.h" 2 3
+
+namespace std
+{
+
+
+  namespace __detail {
+
+
+
+    template<typename _String, typename _CharT>
+      struct _Quoted_string
+      {
+ static_assert(is_reference<_String>::value
+     || is_pointer<_String>::value,
+        "String type must be pointer or reference");
+
+ _Quoted_string(_String __str, _CharT __del, _CharT __esc)
+ : _M_string(__str), _M_delim{__del}, _M_escape{__esc}
+ { }
+
+ _Quoted_string&
+ operator=(_Quoted_string&) = delete;
+
+ _String _M_string;
+ _CharT _M_delim;
+ _CharT _M_escape;
+      };
+
+
+    template<typename _CharT, typename _Traits>
+      struct _Quoted_string<basic_string_view<_CharT, _Traits>, _CharT>
+      {
+ _Quoted_string(basic_string_view<_CharT, _Traits> __str,
+         _CharT __del, _CharT __esc)
+ : _M_string(__str), _M_delim{__del}, _M_escape{__esc}
+ { }
+
+ _Quoted_string&
+ operator=(_Quoted_string&) = delete;
+
+ basic_string_view<_CharT, _Traits> _M_string;
+ _CharT _M_delim;
+ _CharT _M_escape;
+      };
+
+
+
+
+
+
+
+    template<typename _CharT, typename _Traits>
+      std::basic_ostream<_CharT, _Traits>&
+      operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+   const _Quoted_string<const _CharT*, _CharT>& __str)
+      {
+
+
+ std::basic_ostringstream<_CharT, _Traits> __ostr;
+ __ostr << __str._M_delim;
+ for (const _CharT* __c = __str._M_string; *__c; ++__c)
+   {
+     if (*__c == __str._M_delim || *__c == __str._M_escape)
+       __ostr << __str._M_escape;
+     __ostr << *__c;
+   }
+ __ostr << __str._M_delim;
+
+ return __os << __ostr.str();
+      }
+
+
+
+
+
+
+    template<typename _CharT, typename _Traits, typename _String>
+      std::basic_ostream<_CharT, _Traits>&
+      operator<<(std::basic_ostream<_CharT, _Traits>& __os,
+   const _Quoted_string<_String, _CharT>& __str)
+      {
+
+
+ std::basic_ostringstream<_CharT, _Traits> __ostr;
+ __ostr << __str._M_delim;
+ for (auto __c : __str._M_string)
+   {
+     if (__c == __str._M_delim || __c == __str._M_escape)
+       __ostr << __str._M_escape;
+     __ostr << __c;
+   }
+ __ostr << __str._M_delim;
+
+ return __os << __ostr.str();
+      }
+
+
+
+
+
+
+
+    template<typename _CharT, typename _Traits, typename _Alloc>
+      std::basic_istream<_CharT, _Traits>&
+      operator>>(std::basic_istream<_CharT, _Traits>& __is,
+   const _Quoted_string<basic_string<_CharT, _Traits, _Alloc>&,
+          _CharT>& __str)
+      {
+ _CharT __c;
+ __is >> __c;
+ if (!__is.good())
+   return __is;
+ if (__c != __str._M_delim)
+   {
+     __is.unget();
+     __is >> __str._M_string;
+     return __is;
+   }
+ __str._M_string.clear();
+ std::ios_base::fmtflags __flags
+   = __is.flags(__is.flags() & ~std::ios_base::skipws);
+ do
+   {
+     __is >> __c;
+     if (!__is.good())
+       break;
+     if (__c == __str._M_escape)
+       {
+  __is >> __c;
+  if (!__is.good())
+    break;
+       }
+     else if (__c == __str._M_delim)
+       break;
+     __str._M_string += __c;
+   }
+ while (true);
+ __is.setf(__flags);
+
+ return __is;
+      }
+  }
+
+
+}
+# 51 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 2 3
+
+
+
+namespace std
+{
+
+
+
+
+
+  struct _Resetiosflags { ios_base::fmtflags _M_mask; };
+# 70 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  inline _Resetiosflags
+  resetiosflags(ios_base::fmtflags __mask)
+  { return { __mask }; }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Resetiosflags __f)
+    {
+      __is.setf(ios_base::fmtflags(0), __f._M_mask);
+      return __is;
+    }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Resetiosflags __f)
+    {
+      __os.setf(ios_base::fmtflags(0), __f._M_mask);
+      return __os;
+    }
+
+
+  struct _Setiosflags { ios_base::fmtflags _M_mask; };
+# 100 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  inline _Setiosflags
+  setiosflags(ios_base::fmtflags __mask)
+  { return { __mask }; }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Setiosflags __f)
+    {
+      __is.setf(__f._M_mask);
+      return __is;
+    }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setiosflags __f)
+    {
+      __os.setf(__f._M_mask);
+      return __os;
+    }
+
+
+  struct _Setbase { int _M_base; };
+# 131 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  inline _Setbase
+  setbase(int __base)
+  { return { __base }; }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Setbase __f)
+    {
+      __is.setf(__f._M_base == 8 ? ios_base::oct :
+  __f._M_base == 10 ? ios_base::dec :
+  __f._M_base == 16 ? ios_base::hex :
+  ios_base::fmtflags(0), ios_base::basefield);
+      return __is;
+    }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setbase __f)
+    {
+      __os.setf(__f._M_base == 8 ? ios_base::oct :
+  __f._M_base == 10 ? ios_base::dec :
+  __f._M_base == 16 ? ios_base::hex :
+  ios_base::fmtflags(0), ios_base::basefield);
+      return __os;
+    }
+
+
+  template<typename _CharT>
+    struct _Setfill { _CharT _M_c; };
+# 168 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  template<typename _CharT>
+    inline _Setfill<_CharT>
+    setfill(_CharT __c)
+    { return { __c }; }
+
+  template<typename _CharT, typename _Traits>
+    __attribute__((__deprecated__("'std::setfill' should only be used with "
+      "output streams")))
+    inline basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Setfill<_CharT> __f)
+    {
+      __is.fill(__f._M_c);
+      return __is;
+    }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setfill<_CharT> __f)
+    {
+      __os.fill(__f._M_c);
+      return __os;
+    }
+
+
+  struct _Setprecision { int _M_n; };
+# 201 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  inline _Setprecision
+  setprecision(int __n)
+  { return { __n }; }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Setprecision __f)
+    {
+      __is.precision(__f._M_n);
+      return __is;
+    }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setprecision __f)
+    {
+      __os.precision(__f._M_n);
+      return __os;
+    }
+
+
+  struct _Setw { int _M_n; };
+# 231 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  inline _Setw
+  setw(int __n)
+  { return { __n }; }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Setw __f)
+    {
+      __is.width(__f._M_n);
+      return __is;
+    }
+
+  template<typename _CharT, typename _Traits>
+    inline basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Setw __f)
+    {
+      __os.width(__f._M_n);
+      return __os;
+    }
+
+
+
+  template<typename _MoneyT>
+    struct _Get_money { _MoneyT& _M_mon; bool _M_intl; };
+# 264 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  template<typename _MoneyT>
+    inline _Get_money<_MoneyT>
+    get_money(_MoneyT& __mon, bool __intl = false)
+    { return { __mon, __intl }; }
+
+  template<typename _CharT, typename _Traits, typename _MoneyT>
+    basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Get_money<_MoneyT> __f)
+    {
+      typename basic_istream<_CharT, _Traits>::sentry __cerb(__is, false);
+      if (__cerb)
+ {
+   ios_base::iostate __err = ios_base::goodbit;
+   try
+     {
+       typedef istreambuf_iterator<_CharT, _Traits> _Iter;
+       typedef money_get<_CharT, _Iter> _MoneyGet;
+
+       const _MoneyGet& __mg = use_facet<_MoneyGet>(__is.getloc());
+       __mg.get(_Iter(__is.rdbuf()), _Iter(), __f._M_intl,
+         __is, __err, __f._M_mon);
+     }
+   catch(__cxxabiv1::__forced_unwind&)
+     {
+       __is._M_setstate(ios_base::badbit);
+       throw;
+     }
+   catch(...)
+     { __is._M_setstate(ios_base::badbit); }
+   if (__err)
+     __is.setstate(__err);
+ }
+      return __is;
+    }
+
+
+  template<typename _MoneyT>
+    struct _Put_money { const _MoneyT& _M_mon; bool _M_intl; };
+# 311 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  template<typename _MoneyT>
+    inline _Put_money<_MoneyT>
+    put_money(const _MoneyT& __mon, bool __intl = false)
+    { return { __mon, __intl }; }
+
+  template<typename _CharT, typename _Traits, typename _MoneyT>
+    basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_money<_MoneyT> __f)
+    {
+      typename basic_ostream<_CharT, _Traits>::sentry __cerb(__os);
+      if (__cerb)
+ {
+   ios_base::iostate __err = ios_base::goodbit;
+   try
+     {
+       typedef ostreambuf_iterator<_CharT, _Traits> _Iter;
+       typedef money_put<_CharT, _Iter> _MoneyPut;
+
+       const _MoneyPut& __mp = use_facet<_MoneyPut>(__os.getloc());
+       if (__mp.put(_Iter(__os.rdbuf()), __f._M_intl, __os,
+      __os.fill(), __f._M_mon).failed())
+  __err |= ios_base::badbit;
+     }
+   catch(__cxxabiv1::__forced_unwind&)
+     {
+       __os._M_setstate(ios_base::badbit);
+       throw;
+     }
+   catch(...)
+     { __os._M_setstate(ios_base::badbit); }
+   if (__err)
+     __os.setstate(__err);
+ }
+      return __os;
+    }
+
+  template<typename _CharT>
+    struct _Put_time
+    {
+      const std::tm* _M_tmb;
+      const _CharT* _M_fmt;
+    };
+# 363 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  template<typename _CharT>
+    inline _Put_time<_CharT>
+    put_time(const std::tm* __tmb, const _CharT* __fmt)
+    { return { __tmb, __fmt }; }
+
+  template<typename _CharT, typename _Traits>
+    basic_ostream<_CharT, _Traits>&
+    operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_time<_CharT> __f)
+    {
+      typename basic_ostream<_CharT, _Traits>::sentry __cerb(__os);
+      if (__cerb)
+        {
+          ios_base::iostate __err = ios_base::goodbit;
+          try
+            {
+              typedef ostreambuf_iterator<_CharT, _Traits> _Iter;
+              typedef time_put<_CharT, _Iter> _TimePut;
+
+              const _CharT* const __fmt_end = __f._M_fmt +
+                _Traits::length(__f._M_fmt);
+
+              const _TimePut& __mp = use_facet<_TimePut>(__os.getloc());
+              if (__mp.put(_Iter(__os.rdbuf()), __os, __os.fill(),
+                           __f._M_tmb, __f._M_fmt, __fmt_end).failed())
+                __err |= ios_base::badbit;
+            }
+          catch(__cxxabiv1::__forced_unwind&)
+            {
+              __os._M_setstate(ios_base::badbit);
+              throw;
+            }
+          catch(...)
+            { __os._M_setstate(ios_base::badbit); }
+          if (__err)
+            __os.setstate(__err);
+        }
+      return __os;
+    }
+
+  template<typename _CharT>
+    struct _Get_time
+    {
+      std::tm* _M_tmb;
+      const _CharT* _M_fmt;
+    };
+# 418 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  template<typename _CharT>
+    inline _Get_time<_CharT>
+    get_time(std::tm* __tmb, const _CharT* __fmt)
+    { return { __tmb, __fmt }; }
+
+  template<typename _CharT, typename _Traits>
+    basic_istream<_CharT, _Traits>&
+    operator>>(basic_istream<_CharT, _Traits>& __is, _Get_time<_CharT> __f)
+    {
+      typename basic_istream<_CharT, _Traits>::sentry __cerb(__is, false);
+      if (__cerb)
+        {
+          ios_base::iostate __err = ios_base::goodbit;
+          try
+            {
+              typedef istreambuf_iterator<_CharT, _Traits> _Iter;
+              typedef time_get<_CharT, _Iter> _TimeGet;
+
+              const _CharT* const __fmt_end = __f._M_fmt +
+                _Traits::length(__f._M_fmt);
+
+              const _TimeGet& __mg = use_facet<_TimeGet>(__is.getloc());
+              __mg.get(_Iter(__is.rdbuf()), _Iter(), __is,
+                       __err, __f._M_tmb, __f._M_fmt, __fmt_end);
+            }
+          catch(__cxxabiv1::__forced_unwind&)
+            {
+              __is._M_setstate(ios_base::badbit);
+              throw;
+            }
+          catch(...)
+            { __is._M_setstate(ios_base::badbit); }
+          if (__err)
+            __is.setstate(__err);
+        }
+      return __is;
+    }
+# 465 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  template<typename _CharT>
+    inline auto
+    quoted(const _CharT* __string,
+    _CharT __delim = _CharT('"'), _CharT __escape = _CharT('\\'))
+    {
+      return __detail::_Quoted_string<const _CharT*, _CharT>(__string, __delim,
+            __escape);
+    }
+
+  template<typename _CharT, typename _Traits, typename _Alloc>
+    inline auto
+    quoted(const basic_string<_CharT, _Traits, _Alloc>& __string,
+    _CharT __delim = _CharT('"'), _CharT __escape = _CharT('\\'))
+    {
+      return __detail::_Quoted_string<
+ const basic_string<_CharT, _Traits, _Alloc>&, _CharT>(
+     __string, __delim, __escape);
+    }
+
+  template<typename _CharT, typename _Traits, typename _Alloc>
+    inline auto
+    quoted(basic_string<_CharT, _Traits, _Alloc>& __string,
+    _CharT __delim = _CharT('"'), _CharT __escape = _CharT('\\'))
+    {
+      return __detail::_Quoted_string<
+ basic_string<_CharT, _Traits, _Alloc>&, _CharT>(
+     __string, __delim, __escape);
+    }
+
+
+
+
+  template<typename _CharT, typename _Traits>
+    inline auto
+    quoted(basic_string_view<_CharT, _Traits> __sv,
+    _CharT __delim = _CharT('"'), _CharT __escape = _CharT('\\'))
+    {
+      return __detail::_Quoted_string<
+ basic_string_view<_CharT, _Traits>, _CharT>(__sv, __delim, __escape);
+    }
+# 514 "C:/msys64/mingw64/include/c++/14.2.0/iomanip" 3
+  extern template ostream& operator<<(ostream&, _Setfill<char>);
+  extern template ostream& operator<<(ostream&, _Setiosflags);
+  extern template ostream& operator<<(ostream&, _Resetiosflags);
+  extern template ostream& operator<<(ostream&, _Setbase);
+  extern template ostream& operator<<(ostream&, _Setprecision);
+  extern template ostream& operator<<(ostream&, _Setw);
+  extern template istream& operator>>(istream&, _Setfill<char>);
+  extern template istream& operator>>(istream&, _Setiosflags);
+  extern template istream& operator>>(istream&, _Resetiosflags);
+  extern template istream& operator>>(istream&, _Setbase);
+  extern template istream& operator>>(istream&, _Setprecision);
+  extern template istream& operator>>(istream&, _Setw);
+
+
+  extern template wostream& operator<<(wostream&, _Setfill<wchar_t>);
+  extern template wostream& operator<<(wostream&, _Setiosflags);
+  extern template wostream& operator<<(wostream&, _Resetiosflags);
+  extern template wostream& operator<<(wostream&, _Setbase);
+  extern template wostream& operator<<(wostream&, _Setprecision);
+  extern template wostream& operator<<(wostream&, _Setw);
+  extern template wistream& operator>>(wistream&, _Setfill<wchar_t>);
+  extern template wistream& operator>>(wistream&, _Setiosflags);
+  extern template wistream& operator>>(wistream&, _Resetiosflags);
+  extern template wistream& operator>>(wistream&, _Setbase);
+  extern template wistream& operator>>(wistream&, _Setprecision);
+  extern template wistream& operator>>(wistream&, _Setw);
+
+
+
+
+}
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
+# 1 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 1 3
+# 36 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
+       
+# 37 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
+
+
+
+
+
+
+
+namespace std
+{
+
+# 62 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
+  extern istream cin;
+  extern ostream cout;
+  extern ostream cerr;
+  extern ostream clog;
+
+
+  extern wistream wcin;
+  extern wostream wcout;
+  extern wostream wcerr;
+  extern wostream wclog;
+# 85 "C:/msys64/mingw64/include/c++/14.2.0/iostream" 3
+
+}
 # 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
+
 
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 1
 # 17 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h"
@@ -75658,7 +76234,7 @@ public:
     bool getIsGameOverStatus() const;
     void setStates(bool pause, bool run, bool over);
 };
-# 12 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
+# 13 "C:/Users/LENOVO/Desktop/snakeGameOOp/UIManager.cpp" 2
 
 
 UIManager::UIManager(Game* gameInstance) : game(gameInstance) {
@@ -75806,20 +76382,52 @@ void UIManager::drawRestart(sf::RenderWindow &window) {
     scoreLabel.setString("Score:");
     scoreLabel.setCharacterSize(20);
     scoreLabel.setFillColor(sf::Color::White);
-    scoreLabel.setPosition(800 / 2 - 40, 600 / 2 - 180);
+    scoreLabel.setPosition(800 / 2 - 35, 600 / 2 - 180);
 
     window.draw(scoreLabel);
 
 
-    score.setFont(font);
-    score.setString(std::to_string(scoreManager->getCurrScore()));
+
+    int currentScore = scoreManager->getCurrScore();
     score.setCharacterSize(100);
     score.setFillColor(sf::Color::White);
     score.setPosition(800 / 2 - 40 , 600 / 2 - 140);
 
     window.draw(score);
+    if (!scoreSaved) {
+        dataFormat(currentScore);
+        scoreSaved = true;
+    }
+
 }
 
+void UIManager::dataFormat(int score) {
+
+    std::time_t now = std::time(nullptr);
+    std::tm* localTime = std::localtime(&now);
+
+
+    std::ostringstream dateStream;
+    dateStream << std::put_time(localTime, "%Y-%m-%d");
+    std::ostringstream timeStream;
+    timeStream << std::put_time(localTime, "%H:%M:%S");
+
+    std::string date = dateStream.str();
+    std::string time = timeStream.str();
+
+
+    std::string scoreData = std::to_string(score) + "," + time + "," + date;
+
+
+    scoreManager->saveDataToFile(scoreData);
+}
+
+void UIManager::resetScoreFont(sf::Text& score) {
+    score.setCharacterSize(50);
+    score.setFillColor(sf::Color::Red);
+    score.setPosition(10, 10);
+
+}
 
 
 void UIManager::drawRestartButton(sf::RenderWindow &window) {
@@ -75835,6 +76443,7 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
 
     else if(game->getIsPausedStatus() && scoreButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         isScorePageOpened = true;
+
     }else if(isScorePageOpened && scorePageBackButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         isScorePageOpened = false;
     }
@@ -75844,6 +76453,9 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
         snake.resetSnake();
         food.generateNewPosition(800, 600);
 
+        scoreSaved = false;
+        scoreManager->resetScore();
+        resetScoreFont(score);
     }
 
 
@@ -75852,6 +76464,9 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
         snake.resetSnake();
         food.generateNewPosition(800, 600);
 
+        scoreManager->resetScore();
+        scoreSaved = false;
+        resetScoreFont(score);
     }
 }
 

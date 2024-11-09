@@ -21,6 +21,7 @@ ScoreManager::~ScoreManager() {
 void ScoreManager::displayScore(sf::RenderWindow &window) {
     std::vector<ScoreEntry> scores = storage->loadScore();
 
+    // Ensure the font loads correctly
     sf::Font font;
     if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
         std::cerr << "Error: Could not load font." << std::endl;
@@ -42,10 +43,11 @@ void ScoreManager::displayScore(sf::RenderWindow &window) {
         return;
     }
 
+    // Loop through the vector in reverse order
     for (size_t i = 0; i < scores.size(); ++i) {
-        const ScoreEntry &entry = scores[i];
-        scoreText.setString(std::to_string(i + 1) + " - " + entry.score + " " + entry.date + " " + entry.time);
-        scoreText.setPosition(100, startY + i * offsetY);
+        const ScoreEntry &entry = scores[scores.size() - 1 - i];  // Get elements in reverse order
+        scoreText.setString(std::to_string(i + 1) + "-   " + entry.score + "       " + entry.date + "    " + entry.time);
+        scoreText.setPosition(100, startY + i * offsetY);  // Normal positioning for i
         window.draw(scoreText);
     }
 }
@@ -67,5 +69,9 @@ int ScoreManager::getCurrScore() const {
 }
 
 
+void ScoreManager::saveDataToFile(std::string data) {
+    storage->saveScore(data);
+
+}
 
 

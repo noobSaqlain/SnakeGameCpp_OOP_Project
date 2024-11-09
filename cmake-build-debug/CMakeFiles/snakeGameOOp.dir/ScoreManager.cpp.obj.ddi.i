@@ -61664,6 +61664,7 @@ public:
     void resetScore();
     int getHighestScore()const ;
     int getCurrScore()const;
+    void saveDataToFile(std::string data);
 
 
     void displayScore(sf::RenderWindow& window);
@@ -73000,6 +73001,7 @@ ScoreManager::~ScoreManager() {
 void ScoreManager::displayScore(sf::RenderWindow &window) {
     std::vector<ScoreEntry> scores = storage->loadScore();
 
+
     sf::Font font;
     if (!font.loadFromFile("C:/Users/LENOVO/Desktop/snakeGameOOp/fonts/Neucha-Regular.ttf")) {
         std::cerr << "Error: Could not load font." << std::endl;
@@ -73021,9 +73023,10 @@ void ScoreManager::displayScore(sf::RenderWindow &window) {
         return;
     }
 
+
     for (size_t i = 0; i < scores.size(); ++i) {
-        const ScoreEntry &entry = scores[i];
-        scoreText.setString(std::to_string(i + 1) + " - " + entry.score + " " + entry.date + " " + entry.time);
+        const ScoreEntry &entry = scores[scores.size() - 1 - i];
+        scoreText.setString(std::to_string(i + 1) + "-   " + entry.score + "       " + entry.date + "    " + entry.time);
         scoreText.setPosition(100, startY + i * offsetY);
         window.draw(scoreText);
     }
@@ -73043,4 +73046,10 @@ void ScoreManager::updateScore() {
 
 int ScoreManager::getCurrScore() const {
     return currentScore;
+}
+
+
+void ScoreManager::saveDataToFile(std::string data) {
+    storage->saveScore(data);
+
 }

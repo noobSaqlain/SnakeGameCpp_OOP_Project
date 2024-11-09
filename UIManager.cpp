@@ -5,6 +5,7 @@
 #include "UIManager.h"
 
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 
@@ -160,16 +161,48 @@ void UIManager::drawRestart(sf::RenderWindow &window) {
 
     window.draw(scoreLabel);  // Draw the "Score:" label
 
+
     // Display current score
-    score.setFont(font);  // Set the font again (if necessary)
-    score.setString(std::to_string(scoreManager->getCurrScore()));  // Actual score
+    int currentScore = scoreManager->getCurrScore();
     score.setCharacterSize(100);  // Larger font size for the score
     score.setFillColor(sf::Color::White);  // Color for the score text
     score.setPosition(SCREEN_WIDTH / 2 - 40 , SCREEN_HEIGHT / 2 - 140);  // Position below "Score:" label
 
     window.draw(score);  // Draw the score text
+    if (!scoreSaved) {
+        dataFormat(currentScore);  // Save score data to file
+        scoreSaved = true;  // Mark that the score has been saved
+    }
+
 }
 
+void UIManager::dataFormat(int score) {
+    // Get the current time and date
+    std::time_t now = std::time(nullptr);
+    std::tm* localTime = std::localtime(&now);
+
+    // Format the date and time (e.g., 2024-11-09, 14:32:00)
+    std::ostringstream dateStream;
+    dateStream << std::put_time(localTime, "%Y-%m-%d");  // Date format "YYYY-MM-DD"
+    std::ostringstream timeStream;
+    timeStream << std::put_time(localTime, "%H:%M:%S");  // Time format "HH:MM:SS"
+
+    std::string date = dateStream.str();
+    std::string time = timeStream.str();
+
+    // Create the string in the required format: "score,time,date"
+    std::string scoreData = std::to_string(score) + "," + time + "," + date;
+
+    // Save the score data
+    scoreManager->saveDataToFile(scoreData);
+}
+
+void UIManager::resetScoreFont(sf::Text& score) {
+    score.setCharacterSize(50);
+    score.setFillColor(sf::Color::Red);
+    score.setPosition(10, 10);  // Example: Top-left corner
+
+}
 
 
 void UIManager::drawRestartButton(sf::RenderWindow &window) {
@@ -185,6 +218,7 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
     //score page when game is paused
     else if(game->getIsPausedStatus() && scoreButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         isScorePageOpened = true;
+
     }else if(isScorePageOpened && scorePageBackButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         isScorePageOpened = false;
     }
@@ -194,6 +228,9 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
         snake.resetSnake();                 // Reset snake to its initial state
         food.generateNewPosition(SCREEN_WIDTH, SCREEN_HEIGHT);  // Reset food position
         // Optionally reset game-related timers if any (e.g., countdown)
+        scoreSaved = false;
+        scoreManager->resetScore();
+        resetScoreFont(score);
     }
 
     // Go back to main menu if the game is over and the "Back to Menu" button is clicked
@@ -202,6 +239,9 @@ void UIManager::handleInputs(sf::Vector2i& mousePos, Snake& snake, Food& food) {
         snake.resetSnake();                 // Reset snake position and size
         food.generateNewPosition(SCREEN_WIDTH, SCREEN_HEIGHT); // Reposition food
         // Optionally reset score and game state if needed
+        scoreManager->resetScore();
+        scoreSaved = false;
+        resetScoreFont(score);
     }
 }
 
@@ -227,7 +267,7 @@ void UIManager::updateScore() {
 }
 
 void UIManager::drawScore(sf::RenderWindow& window) {
-    score.setString(std::to_string(scoreManager->getCurrScore())); /// everytime is should get updated
+    score.setString(std::to_string(scoreManager->getCurrScore())); /// everytime it should get updated
     window.draw(score);
 }
 

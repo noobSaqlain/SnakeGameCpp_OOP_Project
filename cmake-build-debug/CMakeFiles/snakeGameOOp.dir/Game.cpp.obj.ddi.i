@@ -70744,6 +70744,7 @@ public:
     void resetScore();
     int getHighestScore()const ;
     int getCurrScore()const;
+    void saveDataToFile(std::string data);
 
 
     void displayScore(sf::RenderWindow& window);
@@ -72400,6 +72401,7 @@ class Game;
 class UIManager {
   private:
      bool isScorePageOpened = false;
+    bool scoreSaved = false;
     Game* game;
     ScoreManager* scoreManager;
 
@@ -72419,6 +72421,7 @@ class UIManager {
     sf::Text score;
 
     sf::Font font;
+
   public:
     UIManager(Game* gameInstance);
     ~UIManager();
@@ -72434,6 +72437,9 @@ class UIManager {
      bool getIsScorePageOpened() const;
      void updateScore();
     void drawScore(sf::RenderWindow& window);
+    void dataFormat(int score);
+    void resetScoreFont(sf::Text& score);
+
 };
 # 5 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.cpp" 2
 using namespace sf;
@@ -72479,7 +72485,6 @@ void Game::build() {
         if (isGameOver) {
             uiManager->drawRestart(window);
         } else if (isPaused) {
-
             if(uiManager->getIsScorePageOpened())
                 uiManager->drawScorePage(window);
             else

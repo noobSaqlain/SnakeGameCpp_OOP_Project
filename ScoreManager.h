@@ -22,6 +22,7 @@ public:
     void resetScore();
     int getHighestScore()const ;
     int getCurrScore()const;
+    void saveDataToFile(std::string data);
 
 
     void displayScore(sf::RenderWindow& window);

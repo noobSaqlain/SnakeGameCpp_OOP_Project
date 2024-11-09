@@ -45,7 +45,6 @@ void Game::build() {
         if (isGameOver) {
             uiManager->drawRestart(window);  // Draw the game-over screen
         } else if (isPaused) {
-
             if(uiManager->getIsScorePageOpened())
                 uiManager->drawScorePage(window); // Draw score page
             else

@@ -18,6 +18,7 @@ class Game; /// to remove circular dependency b/w game and uimanager
 class UIManager {
   private:
      bool isScorePageOpened = false;
+    bool scoreSaved = false;
     Game* game;
     ScoreManager* scoreManager;
     //  rect shape for buttons
@@ -37,6 +38,7 @@ class UIManager {
     sf::Text score; // score while run
 
     sf::Font font;
+
   public:
     UIManager(Game* gameInstance);
     ~UIManager();
@@ -52,6 +54,9 @@ class UIManager {
      bool getIsScorePageOpened() const;
      void updateScore();
     void drawScore(sf::RenderWindow& window);
+    void dataFormat(int score);
+    void resetScoreFont(sf::Text& score);
+
 };
 
 
