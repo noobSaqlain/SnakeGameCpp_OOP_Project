@@ -11,8 +11,8 @@ Food::Food(int startX, int startY, int tilesize)
 
 
 void Food::generateNewPosition(int boardWidth, int boardHeight) {
-    x = (rand() % (boardWidth / tilesize)) * tilesize;
-    y = (rand() % (boardHeight / tilesize)) * tilesize;
+    x = (rand() % (boardWidth / tilesize)) * tilesize; //// random x position
+    y = (rand() % (boardHeight / tilesize)) * tilesize; // random y position
 }
 
 bool Food::checkIfEaten(const Snake& snake) const {
@@ -23,10 +23,6 @@ void Food::setFoodPosition(int x, int y) {
     this->y = y;
 }
 
-
-void Food::drawFood(sf::RenderWindow &window) {
-
-}
 
 
 

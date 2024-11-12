@@ -14,7 +14,10 @@ int Board::getScreenWidth() {
      return SCREEN_WIDTH;
  }
 
+
+//////// draws snake
 void Board::drawSnake(Snake &snake, sf::RenderWindow &window) {
+     ////// gets segments from the snake object
      const auto& segments = snake.getSegments();
      bool isHead = true;  // Track if we're drawing the head
 
@@ -35,14 +38,11 @@ void Board::drawSnake(Snake &snake, sf::RenderWindow &window) {
 
 
 void Board::drawFood(Food &food, sf::RenderWindow &window) {
-     sf::CircleShape circle(food.getTileSize() / 2); /// snake and food tilesizes are same
+     sf::CircleShape circle(food.getTileSize() / 2); /// snake and food tilesizes are same, divide by 2 for the radius
      circle.setFillColor(sf::Color::Red);
      circle.setPosition(static_cast<float>(food.getX()), static_cast<float>(food.getY()));
      window.draw(circle);
 }
 
-void Board::drawUI(ScoreManager &scoreManager, sf::RenderWindow &window) {
-
-}
 
 

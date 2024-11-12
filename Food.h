@@ -14,8 +14,7 @@ class Food : public MovableGameObject {
 public:
     Food(int startX, int startY,int tilesize);
     void generateNewPosition(int boardWidth, int boardHeight);
-    bool checkIfEaten(const Snake& snake) const;
-    void drawFood( sf::RenderWindow& window);
+    bool checkIfEaten(const Snake& snake) const; /// check collision of snake head and food
     void setFoodPosition(int x, int y);
     int getX() const {return x;}
     int getY() const {return y;}

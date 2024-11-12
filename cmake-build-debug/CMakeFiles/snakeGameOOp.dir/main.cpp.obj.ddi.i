@@ -3,11 +3,6 @@
 # 0 "<built-in>"
 # 0 "<command-line>"
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/main.cpp"
-
-
-
-
-
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/Game.h" 1
 
 
@@ -26584,7 +26579,13 @@ public:
 };
 # 6 "C:/Users/LENOVO/Desktop/snakeGameOOp/Snake.h" 2
 # 1 "C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h" 1
-# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h"
+
+
+
+
+
+
+
 # 1 "C:/SFML/include/SFML/Graphics.hpp" 1 3 4
 # 32 "C:/SFML/include/SFML/Graphics.hpp" 3 4
 # 1 "C:/SFML/include/SFML/Window.hpp" 1 3 4
@@ -70649,11 +70650,12 @@ private:
 
 }
 # 58 "C:/SFML/include/SFML/Graphics.hpp" 2 3 4
-# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h" 2
+# 9 "C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h" 2
 
 
-# 11 "C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h"
-class MovableGameObject {
+# 10 "C:/Users/LENOVO/Desktop/snakeGameOOp/MovableGameObject.h"
+class MovableGameObject
+{
 protected:
     int x, y;
 
@@ -70810,10 +70812,10 @@ public:
     bool getIsGameOverStatus() const;
     void setStates(bool pause, bool run, bool over);
 };
-# 7 "C:/Users/LENOVO/Desktop/snakeGameOOp/main.cpp" 2
+# 2 "C:/Users/LENOVO/Desktop/snakeGameOOp/main.cpp" 2
 
-
-int main() {
+int main()
+{
     Game game;
     game.build();
     return 0;

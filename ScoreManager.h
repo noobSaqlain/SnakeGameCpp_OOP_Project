@@ -12,7 +12,7 @@
 class ScoreManager{
     int currentScore = 0;
     int highestScore = 0;
-    StorageManager* storage;
+    StorageManager* storage; ///// data layer
 
 
 public:
@@ -24,8 +24,7 @@ public:
     int getCurrScore()const;
     void saveDataToFile(std::string data);
 
-
-    void displayScore(sf::RenderWindow& window);
+    void displayScore(sf::RenderWindow& window); //// display the file data on screen
 
 };
 

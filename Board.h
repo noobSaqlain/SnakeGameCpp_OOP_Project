@@ -21,7 +21,6 @@ class Board {
         Board(int width, int height) : SCREEN_WIDTH(width), SCREEN_HEIGHT(height){};
         void drawSnake(Snake& snake, sf::RenderWindow& window);
         void drawFood(Food& food, sf::RenderWindow &window);
-        void drawUI(ScoreManager& scoreManager, sf::RenderWindow &window);
         int getScreenWidth();
         int getScreenHeight();
 };

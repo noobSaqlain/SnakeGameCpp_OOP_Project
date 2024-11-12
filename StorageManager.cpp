@@ -9,7 +9,6 @@
 #include <iostream>
 
 
-
 std::string StorageManager::getFileName() const {
     return fileName;
 }
@@ -27,7 +26,7 @@ void StorageManager::saveScore(const std::string& scoreData) {
     }
 }
 
-
+////return every score stored in file
 std::vector<ScoreEntry> StorageManager::loadScore() const {
     std::vector<ScoreEntry> scores;
     std::ifstream inFile(fileName);

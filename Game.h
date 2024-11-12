@@ -9,12 +9,15 @@
 
 
 
-
+///constants
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define TILE_SIZE 25
 
-class UIManager;
+/*
+ * circular dependency is when two objects have to reference each other, making compiler confuse to which object compile first
+ */
+class UIManager; ///// to remove circular dependency
 class Game {
 private:
     UIManager* uiManager;
@@ -23,6 +26,7 @@ private:
     Board board;
 
     float timer;
+    ///// states of game
     bool isRunning;
     bool isPaused;
     bool isGameOver;
@@ -32,21 +36,13 @@ public:
 
     Game();
     ~Game();
-///////////////////////////
-    void startGame();
-    void pauseGame();
-    void restartGame();
-    void updateGame();
-    void checkCollision();
 
-/////////////
-
-    void build();
-    void handleEvents(sf::RenderWindow &window);
+    void build(); //// gui logic
+    void handleEvents(sf::RenderWindow &window); ///// input events handler
     bool getIsPausedStatus() const;
     bool getIsRunningStatus() const;
     bool getIsGameOverStatus() const;
-    void setStates(bool pause, bool run, bool over);
+    void setStates(bool pause, bool run, bool over); /// state manager
 };
 
 #endif

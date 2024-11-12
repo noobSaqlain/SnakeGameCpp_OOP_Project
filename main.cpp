@@ -1,13 +1,8 @@
-
-
-
-
-
 #include "Game.h"
 
-
-int main() {
+int main()
+{
     Game game;
-    game.build();
+    game.build(); ///// method where the GUI logic is written
     return 0;
 }
